@@ -5,6 +5,14 @@
   "main": "index.js",
   "license": "MIT",
   "author": "Buddy Agyin",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BuildWeek-better-professor-1/back-end.git"
+  },
+  "scripts":{
+    "server": "nodemon index.js",
+    "start": "node index.js"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
