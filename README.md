@@ -20,7 +20,6 @@ Content-Type |String  | Yes    | Must be application/json|
 
 Name       | Type   | Required | Description                              |
 -----------|--------|----------| -----------------------------------------|
-type       | String | Yes      | User's type(professor/student)           |
 firstName  | String | Yes      | User's first name                        |
 lastName   | String | No       | User's last name                         |
 email      | String | Yes      | User's email address                     |

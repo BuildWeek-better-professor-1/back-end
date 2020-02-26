@@ -10,18 +10,16 @@ exports.up = function(knex) {
         users.string('email')
             .unique()
             .notNullable()
-        users.string('first name')
+        users.string('first_name')
             .notNullable()
-        users.string('last name')
-        users.string('type')
-            .notNullable()
+        users.string('last_name')
   })
 
   .createTable('students', students => {
         students.increments()
-        students.string('first name')
+        students.string('first_name')
             .notNullable()
-        students.string('last name')
+        students.string('last_name')
             .notNullable()
   })
   .createTable('student list', sl => {
