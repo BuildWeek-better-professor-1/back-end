@@ -1,7 +1,7 @@
 # Lambda School Better Professor API
 
 ## Base URL
-** Need Base URL upon delpoying **
+https://better-professor-app-1.herokuapp.com/
 
 ## Register A New User
 
