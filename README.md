@@ -1,12 +1,9 @@
 # Lambda School Better Professor API
-------------------------------------
 
 ## Base URL
 ** Need Base URL upon delpoying **
-----------------------------------
 
 ## Register A New User
-----------------------
 
 HTTP Method: POST
 
@@ -24,17 +21,11 @@ Content-Type |String  | Yes    | Must be application/json|
 Name       | Type   | Required | Description                              |
 -----------|--------|----------| -----------------------------------------|
 type       | String | Yes      | User's type(professor/student)           |
------------|--------|----------|------------------------------------------|
 firstName  | String | Yes      | User's first name                        |
------------|--------|----------|------------------------------------------|
 lastName   | String | No       | User's last name                         |
------------|--------|----------|------------------------------------------|
 email      | String | Yes      | User's email address                     |
------------|--------|----------|------------------------------------------|
 username   | String | Yes      | User's desired username(must be unique)  |
------------|--------|----------|------------------------------------------|
 password   | String | Yes      | User's password(must be at least 6 chars)|
------------|--------|----------|------------------------------------------|
 
 ### Example 
 
@@ -78,9 +69,7 @@ Content-Type |String  | Yes      | Must be application/json|
 Name       | Type   | Required | Description                              |
 -----------|--------|----------| -----------------------------------------|
 username   | String | Yes      | User's username at registration          |
------------|--------|----------|------------------------------------------|
 password   | String | Yes      | User's chosen password                   |
------------|--------|----------|------------------------------------------|
 
 ### Example 
 
