@@ -3,34 +3,33 @@ const Users = require('../users/users-model.js')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const secrets = require('../config/secrets.js')
+const validateNewUser = require('../custom-middleware/validateNewUser.js')
 
-router.post('/register', (req,res) => {
+router.post('/register', validateNewUser, (req,res) => {
     let user = req.body
 
-    if(!user.username || !user.password){
-        res.status(400).json({errorMessage: `Username and password required`})
-    }else{
-        const hash = bcrypt.hashSync(user.password, 8)
-        user.password = hash
 
-        Users.add(user)
-            .then(saved => {
-                const token = generateToken(saved)
-                res.status(201).json({
-                    data: {
-                        message: `Welcome ${saved['First Name']}`,
-                        user: {...saved},
-                        token
-                    }
-                })
+    const hash = bcrypt.hashSync(user.password, 8)
+    user.password = hash
+
+    Users.add(user)
+        .then(saved => {
+            const token = generateToken(saved)
+            res.status(201).json({
+                data: {
+                    message: `Welcome ${saved['First Name']}`,
+                    user: {...saved},
+                    token
+                }
             })
-            .catch(err => {
-                res.status(500).json({
-                    error: err,
-                    errorMessage: `There was an issue with your ${req.method} request`
-                })
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err,
+                errorMessage: `There was an issue with your ${req.method} request`
             })
-    }
+        })
+    
 })
 
 router.post('/login', (req, res) => {
@@ -41,6 +40,7 @@ router.post('/login', (req, res) => {
     }else{
         Users.findBy({username})
             .then(saved => {
+                console.log(saved)
                 if(saved && bcrypt.compareSync(password, saved.password)){
                     const token = generateToken(saved)
                     res.status(200).json({

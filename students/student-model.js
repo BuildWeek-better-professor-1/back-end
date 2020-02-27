@@ -3,25 +3,28 @@ const db = require('../database/dbConfig.js')
 module.exports = {
     addStudent,
     findStudents,
-    findtStudentById
+    findStudentById
 }
 
-function findStudents(prof){
-    return db('student list as sl')
-        .where(prof)
-        .join('users as u', 'users.id', 'sl.profId')
+async function findStudents(prof){
+    return await db('student list as sl')
+        .join('users as u', 'sl.profId', 'u.id')
         .join('students as s', 's.id', 'sl.studentId')
         .select(
-            'students', 
+            's.id',
+            's.firstName',
+            's.lastName', 
             'u.firstName as Prof First Name',
             'u.lastName as Prof Last Name',
             'u.id as Prof ID'
             )
+        .where('sl.profId', prof)
 }
 
 function findStudentById(id){
-    return db('students as s')
-        .where({id})
+    console.log(id)
+    return db('students')
+        .where('students.id', id)
         .first()
 }
 

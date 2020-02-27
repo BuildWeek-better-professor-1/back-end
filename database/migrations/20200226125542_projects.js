@@ -2,7 +2,7 @@
 exports.up = function(knex) {
   return knex.schema.createTable('projects', proj => {
         proj.increments()
-        proj.date('dueDate')
+        proj.integer('dueDate')
             .notNullable()
         proj.string('name')
             .notNullable()
@@ -11,10 +11,12 @@ exports.up = function(knex) {
             .notNullable()
             .references('id')
             .inTable('students')
+            .onUpdate('CASCADE')
+            .onDelete('CASCADE')
   })
   .createTable('reminders', reminders => {
         reminders.increments()
-        reminders.date('date')
+        reminders.integer('date')
             .notNullable()
         reminders.string('message')
             .notNullable()
@@ -22,6 +24,8 @@ exports.up = function(knex) {
             .notNullable()
             .references('id')
             .inTable('projects')
+            .onUpdate('CASCADE')
+            .onDelete('CASCADE')
   })
 };
 
