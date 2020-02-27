@@ -14,12 +14,12 @@ router.post('/register', (req,res) => {
         user.password = hash
 
         Users.add(user)
-            .then(user => {
-                const token = generateToken(user)
+            .then(saved => {
+                const token = generateToken(saved)
                 res.status(201).json({
                     data: {
-                        message: `Welcome ${user.username}`,
-                        user,
+                        message: `Welcome ${saved['First Name']}`,
+                        user: {...saved},
                         token
                     }
                 })
@@ -41,12 +41,17 @@ router.post('/login', (req, res) => {
     }else{
         Users.findBy({username})
             .then(saved => {
-                if(user && bcrypt.compareSync(password, saved.password)){
+                if(saved && bcrypt.compareSync(password, saved.password)){
                     const token = generateToken(saved)
                     res.status(200).json({
                         data: {
-                            message: `Welcome ${user.username}`,
-                            user,
+                            message: `Welcome ${saved.firstName}`,
+                            user: {
+                                username: saved.username,
+                                "First Name": saved.firstName,
+                                "Last Name": saved.lastName,
+                                email: saved.email
+                            },
                             token
                         }
                     })
