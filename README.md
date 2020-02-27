@@ -34,8 +34,7 @@ password   | String | Yes      | User's password(must be at least 6 chars)|
     lastName: 'Snape',
     email: 'potionsmaster@hogwarts.com',
     username: 'SlytherinPrince',
-    password: 'i<3Lily',
-    type: 'student'
+    password: 'i<3Lily'
 }
 ```
 
