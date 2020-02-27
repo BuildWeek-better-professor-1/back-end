@@ -39,7 +39,7 @@ module.exports = {
     client: 'postgresql',
     useNullAsDefault: true,
     connection: {
-      database: process.env.DB_URL,
+      database: process.env.DATABASE_URL,
       user:     'username',
       password: 'password'
     },
