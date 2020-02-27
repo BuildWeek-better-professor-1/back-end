@@ -41,7 +41,7 @@ router.post('/login', (req, res) => {
         Users.findBy({username})
             .then(saved => {
                 console.log(saved)
-                if(saved){
+                if(saved && bcrypt.compareSync(password, saved.password)){
                     const token = generateToken(saved)
                     res.status(200).json({
                         data: {
