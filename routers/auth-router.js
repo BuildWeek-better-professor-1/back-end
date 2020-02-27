@@ -47,6 +47,7 @@ router.post('/login', (req, res) => {
                         data: {
                             message: `Welcome ${saved.firstName}`,
                             user: {
+                                id: saved.id,
                                 username: saved.username,
                                 "First Name": saved.firstName,
                                 "Last Name": saved.lastName,

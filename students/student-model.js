@@ -16,13 +16,11 @@ async function findStudents(prof){
             's.lastName', 
             'u.firstName as Prof First Name',
             'u.lastName as Prof Last Name',
-            'u.id as Prof ID'
             )
         .where('sl.profId', prof)
 }
 
 function findStudentById(id){
-    console.log(id)
     return db('students')
         .where('students.id', id)
         .first()
@@ -35,10 +33,9 @@ function addStudent(student){
             lastName: student.lastName
         })
         .then(created => {
-            db('student list')
-                .insert({student_id: created[0], prof_id: student.profId})
-            return created[0]
+            return db('student list')
+                .insert({studentId: created[0], profId: student.profId})
         })
-        .then(newStudent => findStudentById(newStudent))
+        .then(newStudent => findStudentById(newStudent[0]))
 }
 
