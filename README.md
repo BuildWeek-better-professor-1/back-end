@@ -50,9 +50,9 @@ password   | String | Yes      | User's password(must be at least 6 chars)|
  > If there was a server error registering the user, a response with status code 500 will be returned.
 
 ## Log In A User
-----------------
 
 HTTP Method: Post
+
 URL: /api/auth/login
 
 ### Headers 
@@ -91,6 +91,68 @@ password   | String | Yes      | User's chosen password                   |
 
  #### 500 (Internal Error) 
  > If there was a server error logging in the user, a response with status code 500 will be returned.
+
+
+ ## Get Student List
+
+ HTTP request: GET
+
+ URL: /api/users/:id/students
+
+### Headers 
+
+Name          | Type   |Required  | Description               |
+------------- |--------|----------|---------------------------|
+Content-Type  |String  | Yes      | Must be application/json  |
+authorization |String  | Yes      | token received upon login |
+
+### Response 
+
+#### 200 (OK)
+ > If successful, endpoint will return HTTP response with an array of the users students
+
+  #### 400 (Bad Request)
+ > If a user with the given id doesn't exist, the endpoint will return an HTTP response with a status code of 400
+
+ #### 404 (Not Found)
+ > If the given token has expired the endpoint will return an HTTP response with a status code of 404
+
+  #### 401 (Unathorized)
+ > If no token is sent in header of the request the endpoint will return an HTTP response with a status code of 401
+
+ #### 500 (Internal Error) 
+ > If there was a server error retrieving the data, a response with status code 500 will be returned.
+
+## Get Single Student 
+
+HTTP request: GET
+
+URL: /api/students/:id
+
+### Headers 
+
+Name          | Type   |Required  | Description               |
+------------- |--------|----------|---------------------------|
+Content-Type  |String  | Yes      | Must be application/json  |
+authorization |String  | Yes      | token received upon login |
+
+
+### Response 
+
+#### 200 (OK)
+ > If successful, endpoint will return HTTP response with students id, first name, and last name
+
+  #### 400 (Bad Request)
+ > If a student with the given id doesn't exist, the endpoint will return an HTTP response with a status code of 400
+
+ #### 404 (Not Found)
+ > If the given token has expired the endpoint will return an HTTP response with a status code of 404
+
+  #### 401 (Unathorized)
+ > If no token is sent in header of the request the endpoint will return an HTTP response with a status code of 401
+
+ #### 500 (Internal Error) 
+ > If there was a server error retrieving the data, a response with status code 500 will be returned.
 
 
 
