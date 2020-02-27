@@ -3,7 +3,8 @@ const db = require('../database/dbConfig.js')
 module.exports = {
     addStudent,
     findStudents,
-    findStudentById
+    findStudentById,
+    removeStudent
 }
 
 async function findStudents(prof){
@@ -27,15 +28,22 @@ function findStudentById(id){
 }
 
 function addStudent(student){
+    let id = ''
     return db('students')
         .insert({
             firstName: student.firstName,
             lastName: student.lastName
         })
         .then(created => {
+            id = created[0]
             return db('student list')
                 .insert({studentId: created[0], profId: student.profId})
         })
-        .then(newStudent => findStudentById(newStudent[0]))
+        .then(() => findStudentById(id))
 }
 
+function removeStudent(id){
+    return db('students')
+        .where({id})
+        .del()
+}
