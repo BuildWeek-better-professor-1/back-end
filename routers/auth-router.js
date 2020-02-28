@@ -33,12 +33,12 @@ router.post('/register', validateNewUser, (req,res) => {
 })
 
 router.post('/login', (req, res) => {
-    const {username, password} = req.body
+    const {username, password, type} = req.body
 
     if(!username || !password){
         res.status(400).json({errorMessage: `Username and password required`})
     }else{
-        Users.findBy({username})
+        Users.findBy(username, type)
             .then(saved => {
                 console.log(saved)
                 if(saved && bcrypt.compareSync(password, saved.password)){
@@ -51,7 +51,8 @@ router.post('/login', (req, res) => {
                                 username: saved.username,
                                 "First Name": saved.firstName,
                                 "Last Name": saved.lastName,
-                                email: saved.email
+                                email: saved.email,
+                                type: saved.type
                             },
                             token
                         }
