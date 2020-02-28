@@ -32,11 +32,13 @@ profId     | Integer | No       | Student's Professor Id(required for student ty
 
 ```javascript
 {
-    firstName: 'Severus',
-    lastName: 'Snape',
-    email: 'potionsmaster@hogwarts.com',
-    username: 'SlytherinPrince',
-    password: 'i<3Lily'
+    username: "DameDolla",
+    firstName: "Damian",
+    lastName: "Lillard",
+    password: 'dame',
+    email: "dame@blazers.com",
+    type: "student",
+    profId: 2
 }
 ```
 
@@ -95,8 +97,9 @@ type       | String | Yes      | User's type(professor/student)           |
 
 ```javascript
 {
-    username: 'SlytherinPrince',
-    password: 'i<3Lily'
+    username: 'DameDolla',
+    password: 'dame',
+    type: 'student'
 }
 ```
 
@@ -489,13 +492,15 @@ authorization |String  | Yes      | token received upon login |
                 "id": 5,
                 "Due Date": 1582952881294,
                 "name": "Why the world ended",
-                "notes": ""
+                "notes": "",
+                "completed": false
             },
             {
                 "id": 6,
                 "Due Date": 1583039281294,
                 "name": "Coffe Meeting",
-                "notes": ""
+                "notes": "",
+                "completed": false
             }
         ]
     }
@@ -543,6 +548,7 @@ authorization |String  | Yes      | token received upon login |
                 "name": "Ball out",
                 "dueDate": 1582950338692,
                 "notes": "",
+                "completed": false,
                 "firstName": "Kobe",
                 "lastName": "Bryant"
             },
@@ -551,6 +557,7 @@ authorization |String  | Yes      | token received upon login |
                 "name": "Do Something",
                 "dueDate": 1583295938692,
                 "notes": "",
+                "completed": false,
                 "firstName": "Kobe",
                 "lastName": "Bryant"
             },
@@ -559,6 +566,7 @@ authorization |String  | Yes      | token received upon login |
                 "name": "Create new technology",
                 "dueDate": 1583036738692,
                 "notes": "",
+                "completed": false,
                 "firstName": "Lebron",
                 "lastName": "James"
             },
@@ -567,6 +575,7 @@ authorization |String  | Yes      | token received upon login |
                 "name": "Learn Express",
                 "dueDate": 1583209538692,
                 "notes": "",
+                "completed": false,
                 "firstName": "Damian",
                 "lastName": "Lilliard"
             },
@@ -575,6 +584,7 @@ authorization |String  | Yes      | token received upon login |
                 "name": "Why the world ended",
                 "dueDate": 1582950338692,
                 "notes": "",
+                "completed": false,
                 "firstName": "Anthony",
                 "lastName": "Davis"
             },
@@ -583,6 +593,7 @@ authorization |String  | Yes      | token received upon login |
                 "name": "Coffe Meeting",
                 "dueDate": 1583036738693,
                 "notes": "",
+                "completed": false,
                 "firstName": "Anthony",
                 "lastName": "Davis"
             },
@@ -629,6 +640,7 @@ authorization |String  | Yes      | token received upon login |
             "name": "Create new technology",
             "dueDate": 1583039281294,
             "notes": "",
+            "completed": false,
             "First Name": "Lebron",
             "Last Name": "James"
         }
@@ -676,6 +688,7 @@ authorization |String  | Yes      | token received upon login |
             "name": "Learn Express",
             "dueDate": 1583209538692,
             "notes": "",
+            "completed": true
             "First Name": "Damian",
             "Last Name": "Lilliard"
         }

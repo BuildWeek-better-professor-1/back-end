@@ -7,6 +7,8 @@ exports.up = function(knex) {
         proj.string('name')
             .notNullable()
         proj.string('notes')
+        proj.boolean('completed')
+            .defaultTo(false)
         proj.integer('studentId')
             .notNullable()
             .references('id')
