@@ -18,14 +18,15 @@ Content-Type |String  | Yes    | Must be application/json|
 
 ### Body 
 
-Name       | Type   | Required | Description                              |
------------|--------|----------| -----------------------------------------|
-type       | String | Yes      | User's type(professor/student)           |
-firstName  | String | Yes      | User's first name                        |
-lastName   | String | No       | User's last name                         |
-email      | String | Yes      | User's email address                     |
-username   | String | Yes      | User's desired username(must be unique)  |
-password   | String | Yes      | User's password(must be at least 6 chars)|
+Name       | Type    | Required | Description                                        |
+-----------|-------- |----------| ---------------------------------------------------|
+type       | String  | Yes      | User's type(professor/student)                     |
+firstName  | String  | Yes      | User's first name                                  |
+lastName   | String  | No       | User's last name                                   |
+email      | String  | Yes      | User's email address                               |
+username   | String  | Yes      | User's desired username(must be unique)            |
+password   | String  | Yes      | User's password(must be at least 6 chars)          |
+profId     | Integer | No       | Student's Professor Id(required for student types) |
 
 ### Example 
 
@@ -402,6 +403,141 @@ authorization |String  | Yes      | token received upon login |
 
 #### 500 (Internal Error) 
  > If there was a server error retrieving the data, a response with status code 500 will be returned.
+
+ ## Get Project List
+
+HTTP request: GET
+
+URL: /api/projects
+
+### Headers 
+
+Name          | Type   |Required  | Description               |
+------------- |--------|----------|---------------------------|
+Content-Type  |String  | Yes      | Must be application/json  |
+authorization |String  | Yes      | token received upon login |
+
+### Response 
+
+#### 200 (OK)
+> If successful, endpoint will return HTTP response with an array of all projects
+
+##### Example Response 
+
+ ```javascript
+ {
+    "data": {
+        "projects": [
+            {
+                "id": 1,
+                "name": "Ball out",
+                "dueDate": 1582950338692,
+                "notes": "",
+                "firstName": "Kobe",
+                "lastName": "Bryant"
+            },
+            {
+                "id": 2,
+                "name": "Do Something",
+                "dueDate": 1583295938692,
+                "notes": "",
+                "firstName": "Kobe",
+                "lastName": "Bryant"
+            },
+            {
+                "id": 3,
+                "name": "Create new technology",
+                "dueDate": 1583036738692,
+                "notes": "",
+                "firstName": "Lebron",
+                "lastName": "James"
+            },
+            {
+                "id": 4,
+                "name": "Learn Express",
+                "dueDate": 1583209538692,
+                "notes": "",
+                "firstName": "Damian",
+                "lastName": "Lilliard"
+            },
+            {
+                "id": 5,
+                "name": "Why the world ended",
+                "dueDate": 1582950338692,
+                "notes": "",
+                "firstName": "Anthony",
+                "lastName": "Davis"
+            },
+            {
+                "id": 6,
+                "name": "Coffe Meeting",
+                "dueDate": 1583036738693,
+                "notes": "",
+                "firstName": "Anthony",
+                "lastName": "Davis"
+            },
+        ]
+    }
+}
+```
+
+#### 404 (Not Found)
+> If the given token has expired the endpoint will return an HTTP response with a status code of 404
+
+#### 401 (Unathorized)
+> If no token is sent in header of the request the endpoint will return an HTTP response with a status code of 401
+
+#### 500 (Internal Error) 
+> If there was a server error retrieving the data, a response with status code 500 will be returned.
+
+## Deleting A Project
+
+HTTP Request: DELETE
+URL: /api/projects/:id
+
+### Headers 
+
+Name          | Type   |Required  | Description               |
+------------- |--------|----------|---------------------------|
+Content-Type  |String  | Yes      | Must be application/json  |
+authorization |String  | Yes      | token received upon login |
+
+### Response
+
+#### 200 (OK)
+ > If successful, endpoint will return HTTP response with a message and the deleted projects info
+
+##### Example Response
+
+```javascript
+{
+    "data": {
+        "message": "Project Successfully Deleted",
+        "project": {
+            "id": 4,
+            "name": "Learn Express",
+            "dueDate": 1583209538692,
+            "notes": "",
+            "First Name": "Damian",
+            "Last Name": "Lilliard"
+        }
+    }
+}
+```
+
+#### 400 (Bad Request)
+> If a project with the given id doesn't exist, the endpoint will return an HTTP response with a status code of 400
+
+#### 404 (Not Found)
+> If the given token has expired the endpoint will return an HTTP response with a status code of 404
+
+#### 401 (Unathorized)
+> If no token is sent in header of the request the endpoint will return an HTTP response with a status code of 401
+
+#### 500 (Internal Error) 
+> If there was a server error retrieving the data, a response with status code 500 will be returned.
+
+
 
 
 
