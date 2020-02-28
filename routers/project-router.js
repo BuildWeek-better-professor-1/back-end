@@ -21,6 +21,16 @@ router.get('/', (req, res) => {
         })
 })
 
+router.get('/:id', (req, res) => {
+    res.status(200).json({
+        data: {
+            project: {
+                ...req.project
+            }
+        }
+    })
+})
+
 router.delete('/:id', (req, res) => {
     const {id} = req.params
     console.log(req.project)

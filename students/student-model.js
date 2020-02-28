@@ -4,6 +4,8 @@ module.exports = {
     addStudent,
     findStudents,
     findStudentById,
+    findStudentProjects,
+    updateStudent,
     removeStudent
 }
 
@@ -27,6 +29,12 @@ function findStudentById(id){
         .first()
 }
 
+function findStudentProjects(id){
+    return db('projects as p')
+        .where('p.studentId', id)
+        .select('id', 'dueDate as Due Date', 'name', 'notes')
+}
+
 function addStudent(student){
     let id = ''
     return db('students')
@@ -39,6 +47,13 @@ function addStudent(student){
             return db('student list')
                 .insert({studentId: created[0], profId: student.profId})
         })
+        .then(() => findStudentById(id))
+}
+
+function updateStudent(id, changes){
+    return db('students')
+        .where({id })
+        .update(changes)
         .then(() => findStudentById(id))
 }
 

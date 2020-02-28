@@ -1,4 +1,4 @@
-module.exports = function validateNewUser(req, res, next){
+module.exports = function validateUserInfo (req, res, next){
     const { username, password, firstName, email, type } = req.body
 
     if(!username || !password || !firstName || !email || !type){

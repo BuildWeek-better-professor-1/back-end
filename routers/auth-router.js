@@ -3,9 +3,9 @@ const Users = require('../users/users-model.js')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const secrets = require('../config/secrets.js')
-const validateNewUser = require('../custom-middleware/validateNewUser.js')
+const validateUserInfo = require('../custom-middleware/validateUserInfo.js')
 
-router.post('/register', validateNewUser, (req,res) => {
+router.post('/register', validateUserInfo, (req,res) => {
     let user = req.body
 
 
