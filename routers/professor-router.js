@@ -46,7 +46,7 @@ router.post('/:id/students', (req, res) => {
     const info = {...req.body, profId: req.params.id}
 
     if(!info.firstName || !info.lastName){
-        res.status(401).json({message: 'First and Last name information is required'})
+        res.status(400).json({message: 'First and Last name information is required'})
     }
     
     Students.addStudent(info)

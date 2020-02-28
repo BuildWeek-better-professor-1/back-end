@@ -9,7 +9,12 @@ router.get('/', (req, res) => {
         .then(projects => {
             res.status(200).json({
                 data: {
-                    projects
+                    projects: projects.map(project => {
+                        return{
+                            ...project,
+                            completed: project.completed === 1 ? true : false
+                        }
+                    })
                 }
             })
         })
@@ -25,7 +30,8 @@ router.get('/:id', (req, res) => {
     res.status(200).json({
         data: {
             project: {
-                ...req.project
+                ...req.project,
+                completed: req.project.completed === 1 ? true : false
             }
         }
     })
@@ -41,7 +47,8 @@ router.delete('/:id', (req, res) => {
                 data: {
                     message: 'Project Successfully Deleted',
                     project: {
-                        ...req.project
+                        ...req.project,
+                        completed: req.project.completed === 1 ? true : false
                     }
                 }
 
