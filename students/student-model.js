@@ -32,7 +32,7 @@ function findStudentById(id){
 function findStudentProjects(id){
     return db('projects as p')
         .where('p.studentId', id)
-        .select('id', 'dueDate as Due Date', 'name', 'notes')
+        .select('id', 'dueDate as Due Date', 'name', 'notes', 'completed')
 }
 
 function addStudent(student){
