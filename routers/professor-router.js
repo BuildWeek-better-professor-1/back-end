@@ -51,7 +51,6 @@ router.post('/:id/students', (req, res) => {
     
     Students.addStudent(info)
         .then(saved => {
-            console.log(saved)
             res.status(201).json({
                 data: {
                     message: 'New Student Successfully Created', 
