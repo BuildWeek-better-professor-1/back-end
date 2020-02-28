@@ -20,6 +20,7 @@ Content-Type |String  | Yes    | Must be application/json|
 
 Name       | Type   | Required | Description                              |
 -----------|--------|----------| -----------------------------------------|
+type       | String | Yes      | User's type(professor/student)           |
 firstName  | String | Yes      | User's first name                        |
 lastName   | String | No       | User's last name                         |
 email      | String | Yes      | User's email address                     |
@@ -41,22 +42,23 @@ password   | String | Yes      | User's password(must be at least 6 chars)|
 ### Response
 
 #### 201 (Created)
- > If successfully registered, endpoint will return HTTP response with status code and a body with a token, user's id, email address, username, type, and welcome message
+ > If successfully registered, endpoint will return HTTP response with status code and a body with a token, user's first and last name, id, email address, username, type, and welcome message
 
 ##### Example Response
 
 ```javascript
 {
     "data": {
-        "message": "Welcome Severus",
+        "message": "Welcome Damian",
         "user": {
             "id": 4,
-            "username": "SlytherinPrince",
-            "First Name": "Severus",
-            "Last Name": "Snape",
-            "email": "potionsmaster@hogwarts.com"
+            "username": "DameDolla",
+            "First Name": "Damian",
+            "Last Name": "Lillard",
+            "email": "dame@blazers.com",
+            "type": "student"
         },
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo0LCJ1c2VybmFtZSI6IlNseXRoZXJpblByaW5jZSIsImlhdCI6MTU4MjgyODAzNCwiZXhwIjoxNTgyODMxNjM0fQ.A-6O41sOpxL4Bzsw-aLVMvAuhECGtCWvarHxjMNtkQw"
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo0LCJ1c2VybmFtZSI6IkRhbWVEb2xsYSIsImlhdCI6MTU4Mjg2MDQ1MCwiZXhwIjoxNTgyODY0MDUwfQ.45T0cuAYZSyb5XYLJqdIent0zAJZTDgV7z-ZGdhOJm0"
     }
 }
 ```
@@ -86,6 +88,7 @@ Name       | Type   | Required | Description                              |
 -----------|--------|----------| -----------------------------------------|
 username   | String | Yes      | User's username at registration          |
 password   | String | Yes      | User's chosen password                   |
+type       | String | Yes      | User's type(professor/student)           |
 
 ### Example 
 
@@ -99,21 +102,22 @@ password   | String | Yes      | User's chosen password                   |
 ### Response
 
 #### 200 (OK)
-> If successfully registered, endpoint will return HTTP response with status code and a body with a token and user's id, first name, and email address
+> If successfully registered, endpoint will return HTTP response with status code and a body with a token and user's id, first name, last name, type and email address
 
 ##### Example Response
  ```javascript
- {
+{
     "data": {
-        "message": "Welcome Severus",
+        "message": "Welcome Damian",
         "user": {
             "id": 4,
-            "username": "SlytherinPrince",
-            "First Name": "Severus",
-            "Last Name": "Snape",
-            "email": "potionsmaster@hogwarts.com"
+            "username": "DameDolla",
+            "First Name": "Damian",
+            "Last Name": "Lillard",
+            "email": "dame@blazers.com",
+            "type": "student"
         },
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo0LCJ1c2VybmFtZSI6IlNseXRoZXJpblByaW5jZSIsImlhdCI6MTU4MjgyNzc1MCwiZXhwIjoxNTgyODMxMzUwfQ.UTERho621Dfw3i478kcMzok18o3i-dPIdG2by2MB7TM"
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo0LCJ1c2VybmFtZSI6IkRhbWVEb2xsYSIsImlhdCI6MTU4Mjg2MDU4MCwiZXhwIjoxNTgyODY0MTgwfQ.AIE0cmqz1oTKte1XhIqU4m9935GWYxqqqhA6JHUyts4"
     }
 }
  ```
@@ -127,12 +131,59 @@ password   | String | Yes      | User's chosen password                   |
 #### 500 (Internal Error) 
 > If there was a server error logging in the user, a response with status code 500 will be returned.
 
+## Get All Professors 
+
+HTTP request: GET
+
+URL: /api/users/professors
+
+### Headers 
+
+Name          | Type   |Required  | Description               |
+------------- |--------|----------|---------------------------|
+Content-Type  |String  | Yes      | Must be application/json  |
+
+
+### Response 
+
+#### 200 (OK)
+ > If successful, endpoint will return HTTP response with an array of all professors
+
+##### Example Response 
+
+ ```javascript
+{
+    "data": {
+        "professors": [
+            {
+                "id": 1,
+                "First Name": "Harry",
+                "Last Name": "Potter"
+            },
+            {
+                "id": 2,
+                "First Name": "Severus",
+                "Last Name": "Snape"
+            },
+            {
+                "id": 3,
+                "First Name": "Albus",
+                "Last Name": "Dumbledore"
+            }
+        ]
+    }
+}
+```
+
+#### 500 (Internal Error) 
+ > If there was a server error retrieving the data, a response with status code 500 will be returned.
+
 
 ## Get Student List
 
 HTTP request: GET
 
-URL: /api/users/:id/students
+URL: /api/users/professor/:id/students
 
 ### Headers 
 
@@ -211,56 +262,11 @@ authorization |String  | Yes      | token received upon login |
 #### 500 (Internal Error) 
 > If there was a server error retrieving the data, a response with status code 500 will be returned.
 
-## Get Single Student 
-
-HTTP request: GET
-
-URL: /api/students/:id
-
-### Headers 
-
-Name          | Type   |Required  | Description               |
-------------- |--------|----------|---------------------------|
-Content-Type  |String  | Yes      | Must be application/json  |
-authorization |String  | Yes      | token received upon login |
-
-
-### Response 
-
-#### 200 (OK)
- > If successful, endpoint will return HTTP response with students id, first name, and last name
-
-##### Example Response 
-
- ```javascript
- {
-    "data": {
-        "student": {
-            "id": 3,
-            "First Name": "Damian",
-            "Last Name": "Lilliard"
-        }
-    }
-}
-```
-
-#### 400 (Bad Request)
- > If a student with the given id doesn't exist OR required information is missing, the endpoint will return an HTTP response with a status code of 400
-
-#### 404 (Not Found)
- > If the given token has expired the endpoint will return an HTTP response with a status code of 404
-
-#### 401 (Unathorized)
- > If no token is sent in header of the request the endpoint will return an HTTP response with a status code of 401
-
-#### 500 (Internal Error) 
- > If there was a server error retrieving the data, a response with status code 500 will be returned.
-
 
 ## Creating A New Student
 
 HTTP Request: POST
-URL: /api/users/:id/students
+URL: /api/users/professor/:id/students
 
 ### Headers 
 
@@ -351,6 +357,51 @@ authorization |String  | Yes      | token received upon login |
 
 #### 500 (Internal Error) 
 > If there was a server error retrieving the data, a response with status code 500 will be returned.
+
+## Get Single Student 
+
+HTTP request: GET
+
+URL: /api/students/:id
+
+### Headers 
+
+Name          | Type   |Required  | Description               |
+------------- |--------|----------|---------------------------|
+Content-Type  |String  | Yes      | Must be application/json  |
+authorization |String  | Yes      | token received upon login |
+
+
+### Response 
+
+#### 200 (OK)
+ > If successful, endpoint will return HTTP response with students id, first name, and last name
+
+##### Example Response 
+
+ ```javascript
+ {
+    "data": {
+        "student": {
+            "id": 3,
+            "First Name": "Damian",
+            "Last Name": "Lilliard"
+        }
+    }
+}
+```
+
+#### 400 (Bad Request)
+ > If a student with the given id doesn't exist OR required information is missing, the endpoint will return an HTTP response with a status code of 400
+
+#### 404 (Not Found)
+ > If the given token has expired the endpoint will return an HTTP response with a status code of 404
+
+#### 401 (Unathorized)
+ > If no token is sent in header of the request the endpoint will return an HTTP response with a status code of 401
+
+#### 500 (Internal Error) 
+ > If there was a server error retrieving the data, a response with status code 500 will be returned.
 
 
 

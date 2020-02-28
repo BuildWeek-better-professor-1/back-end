@@ -1,6 +1,6 @@
 
 exports.up = function(knex) {
-  return knex.schema.createTable('users', users => {
+  return knex.schema.createTable('professorUsers', users => {
         users.increments()
         users.string('username')
             .unique()
@@ -14,6 +14,31 @@ exports.up = function(knex) {
             .notNullable()
         users.string('lastName')
             .defaultTo('')
+        users.string('type')
+            .notNullable()
+  })
+  .createTable('studentUsers', users => {
+        users.increments()
+        users.string('username')
+            .unique()
+            .notNullable()
+        users.string('password')
+            .notNullable()
+        users.string('email')
+            .unique()
+            .notNullable()
+        users.string('firstName')
+            .notNullable()
+        users.string('lastName')
+            .defaultTo('')
+        users.string('type')
+            .notNullable()
+        users.integer('profId')
+            .notNullable()
+            .references('id')
+            .inTable('professorUsers')
+            .onUpdate('CASCADE')
+            .onDelete('CASCADE')
   })
 
   .createTable('students', students => {
@@ -26,7 +51,7 @@ exports.up = function(knex) {
   .createTable('student list', sl => {
         sl.integer('profId')
             .references('id')
-            .inTable('users')
+            .inTable('professorUsers')
             .onUpdate('CASCADE')
             .onDelete('CASCADE')
         sl.integer('studentId')
@@ -41,5 +66,6 @@ exports.down = function(knex) {
     return knex.schema
         .dropTableIfExists('student list')
         .dropTableIfExists('students')
-        .dropTableIfExists('users')
+        .dropTableIfExists('studentUsers')
+        .dropTableIfExists('professorUsers')
 };

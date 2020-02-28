@@ -9,7 +9,7 @@ module.exports = {
 
 async function findStudents(prof){
     return await db('student list as sl')
-        .join('users as u', 'sl.profId', 'u.id')
+        .join('professorUsers as u', 'sl.profId', 'u.id')
         .join('students as s', 's.id', 'sl.studentId')
         .select(
             's.id',

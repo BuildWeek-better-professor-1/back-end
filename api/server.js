@@ -4,7 +4,7 @@ const cors = require('cors')
 const restricted = require('../auth/restricted-middleware.js')
 
 const authRouter = require('../routers/auth-router.js')
-const userRouter = require('../routers/users-router.js')
+const profRouter = require('../routers/professor-router.js')
 const studentRouter = require('../routers/student-router.js')
 
 const server = express()
@@ -13,7 +13,7 @@ server.use(express.json())
 server.use(helmet())
 server.use(cors())
 server.use('/api/auth', authRouter)
-server.use('/api/users', restricted, userRouter)
+server.use('/api/users/professor', profRouter)
 server.use('/api/students', restricted, studentRouter)
 
 server.get('/', (req, res) => {
