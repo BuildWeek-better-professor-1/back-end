@@ -315,6 +315,57 @@ lastName    | String | Yes      | Student's last name                      |
 #### 500 (Internal Error) 
 > If there was a server error retrieving the data, a response with status code 500 will be returned.
 
+## Updating A New Student
+
+HTTP Request: PUT
+URL: /api/students/:id/
+
+### Headers 
+
+Name          | Type   |Required  | Description               |
+------------- |--------|----------|---------------------------|
+Content-Type  |String  | Yes      | Must be application/json  |
+authorization |String  | Yes      | token received upon login |
+
+### Body 
+
+Name        | Type   | Required | Description                              |
+------------|--------|----------| -----------------------------------------|
+firstName   | String | Yes      | Student's first name                     | 
+lastName    | String | Yes      | Student's last name                      |
+
+### Response
+
+#### 200 (OK)
+ > If successful, endpoint will return HTTP response with a message and the updated students id, first name, and last name
+
+##### Example Response
+
+```javascript
+{
+    "data": {
+        "message": "Student Successfully Updated",
+        "student": {
+            "id": 23,
+            "First Name": "Jimbo",
+            "Last Name": "Butler"
+        }
+    }
+}
+```
+
+#### 400 (Bad Request)
+> If a user with the given id doesn't exist, the endpoint will return an HTTP response with a status code of 400
+
+#### 404 (Not Found)
+> If the given token has expired the endpoint will return an HTTP response with a status code of 404
+
+#### 401 (Unathorized)
+> If no token is sent in header of the request the endpoint will return an HTTP response with a status code of 401
+
+#### 500 (Internal Error) 
+> If there was a server error retrieving the data, a response with status code 500 will be returned.
+
 ## Deleting A Student
 
 HTTP Request: DELETE
@@ -388,6 +439,65 @@ authorization |String  | Yes      | token received upon login |
             "First Name": "Damian",
             "Last Name": "Lilliard"
         }
+    }
+}
+```
+
+#### 400 (Bad Request)
+ > If a student with the given id doesn't exist OR required information is missing, the endpoint will return an HTTP response with a status code of 400
+
+#### 404 (Not Found)
+ > If the given token has expired the endpoint will return an HTTP response with a status code of 404
+
+#### 401 (Unathorized)
+ > If no token is sent in header of the request the endpoint will return an HTTP response with a status code of 401
+
+#### 500 (Internal Error) 
+ > If there was a server error retrieving the data, a response with status code 500 will be returned.
+
+ ## Get Student Project List
+
+HTTP request: GET
+
+URL: /api/students/:id/projects
+
+### Headers 
+
+Name          | Type   |Required  | Description               |
+------------- |--------|----------|---------------------------|
+Content-Type  |String  | Yes      | Must be application/json  |
+authorization |String  | Yes      | token received upon login |
+
+
+### Response 
+
+#### 200 (OK)
+ > If successful, endpoint will return HTTP response with project info, and students first and last name
+
+##### Example Response 
+
+ ```javascript
+{
+    "data": {
+        "student": {
+            "id": 4,
+            "First Name": "Anthony",
+            "Last Name": "Davis"
+        },
+        "projects": [
+            {
+                "id": 5,
+                "Due Date": 1582952881294,
+                "name": "Why the world ended",
+                "notes": ""
+            },
+            {
+                "id": 6,
+                "Due Date": 1583039281294,
+                "name": "Coffe Meeting",
+                "notes": ""
+            }
+        ]
     }
 }
 ```
@@ -489,6 +599,54 @@ authorization |String  | Yes      | token received upon login |
 
 #### 500 (Internal Error) 
 > If there was a server error retrieving the data, a response with status code 500 will be returned.
+
+## Get Single Project 
+
+HTTP request: GET
+
+URL: /api/projects/:id
+
+### Headers 
+
+Name          | Type   |Required  | Description               |
+------------- |--------|----------|---------------------------|
+Content-Type  |String  | Yes      | Must be application/json  |
+authorization |String  | Yes      | token received upon login |
+
+
+### Response 
+
+#### 200 (OK)
+ > If successful, endpoint will return HTTP response with project info, and students first and last name
+
+##### Example Response 
+
+ ```javascript
+{
+    "data": {
+        "project": {
+            "id": 3,
+            "name": "Create new technology",
+            "dueDate": 1583039281294,
+            "notes": "",
+            "First Name": "Lebron",
+            "Last Name": "James"
+        }
+    }
+}
+```
+
+#### 400 (Bad Request)
+ > If a student with the given id doesn't exist OR required information is missing, the endpoint will return an HTTP response with a status code of 400
+
+#### 404 (Not Found)
+ > If the given token has expired the endpoint will return an HTTP response with a status code of 404
+
+#### 401 (Unathorized)
+ > If no token is sent in header of the request the endpoint will return an HTTP response with a status code of 401
+
+#### 500 (Internal Error) 
+ > If there was a server error retrieving the data, a response with status code 500 will be returned.
 
 ## Deleting A Project
 
