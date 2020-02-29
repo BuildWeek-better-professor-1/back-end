@@ -182,6 +182,53 @@ Content-Type  |String  | Yes      | Must be application/json  |
 #### 500 (Internal Error) 
  > If there was a server error retrieving the data, a response with status code 500 will be returned.
 
+ ## Get Single Professors 
+
+HTTP request: GET
+
+URL: /api/users/professors/:id
+
+### Headers 
+
+Name          | Type   |Required  | Description               |
+------------- |--------|----------|---------------------------|
+Content-Type  |String  | Yes      | Must be application/json  |
+
+
+### Response 
+
+#### 200 (OK)
+ > If successful, endpoint will return HTTP response with an array of all professors
+
+##### Example Response 
+
+ ```javascript
+{
+    "data": {
+        "user": {
+            "id": 3,
+            "username": "albus",
+            "First Name": "Albus",
+            "Last Name": "Dumbledore",
+            "email": "albus@hogwarts.com",
+            "type": "professor"
+        }
+    }
+}
+```
+
+#### 400 (Bad Request)
+> If a user with the given id doesn't exist, the endpoint will return an HTTP response with a status code of 400
+
+#### 404 (Not Found)
+> If the given token has expired the endpoint will return an HTTP response with a status code of 404
+
+#### 401 (Unathorized)
+> If no token is sent in header of the request the endpoint will return an HTTP response with a status code of 401
+
+#### 500 (Internal Error) 
+ > If there was a server error retrieving the data, a response with status code 500 will be returned.
+
 
 ## Get Student List
 
@@ -286,6 +333,15 @@ Name        | Type   | Required | Description                              |
 firstName   | String | Yes      | Student's first name                     | 
 lastName    | String | Yes      | Student's last name                      |
 
+### Example 
+
+```javascript
+{
+	"firstName": "Jimmy",
+	"lastName": "Butler"
+}
+```
+
 ### Response
 
 #### 201 (Created)
@@ -307,7 +363,7 @@ lastName    | String | Yes      | Student's last name                      |
 ```
 
 #### 400 (Bad Request)
-> If a user with the given id doesn't exist, the endpoint will return an HTTP response with a status code of 400
+> If a user with the given id doesn't exist or required info is missing, the endpoint will return an HTTP response with a status code of 400
 
 #### 404 (Not Found)
 > If the given token has expired the endpoint will return an HTTP response with a status code of 404
@@ -660,7 +716,7 @@ authorization |String  | Yes      | token received upon login |
 #### 500 (Internal Error) 
  > If there was a server error retrieving the data, a response with status code 500 will be returned.
 
- ## Creating A New Project
+## Creating A New Project
 
 HTTP Request: POST
 URL: /api/students/:id/projects
@@ -715,6 +771,73 @@ notes       | String  | No       | Any notes about the project              |
 
 #### 400 (Bad Request)
 > If a student with the given id doesn't exist or required information is missing, the endpoint will return an HTTP response with a status code of 400
+
+#### 404 (Not Found)
+> If the given token has expired the endpoint will return an HTTP response with a status code of 404
+
+#### 401 (Unathorized)
+> If no token is sent in header of the request the endpoint will return an HTTP response with a status code of 401
+
+#### 500 (Internal Error) 
+> If there was a server error retrieving the data, a response with status code 500 will be returned.
+
+## Updating A Project
+
+HTTP Request: POST
+URL: /api/projects/:id
+
+### Headers 
+
+Name          | Type   |Required  | Description               |
+------------- |--------|----------|---------------------------|
+Content-Type  |String  | Yes      | Must be application/json  |
+authorization |String  | Yes      | token received upon login |
+
+### Body 
+
+Name        | Type    | Required | Description                                  |
+------------|---------|----------| ---------------------------------------------|
+name        | String  | Yes      | Name of the project                          | 
+dueDate     | Integer | Yes      | Project due date(milliseconds)               |
+notes       | String  | No       | Any notes about the project                  |
+completed   | Boolean | No       | Boolean indicating if projected is completed |
+
+### Example
+
+```javascript
+{
+  name: 'Take over the world',
+  dueDate: 1583015361297,
+  notes: 'Almost done',
+  completed: true
+}
+```
+
+### Response
+
+#### 200 (OK)
+ > If successful, endpoint will return HTTP response with a message and the new project's info, and student's first and last name
+
+##### Example Response
+
+```javascript
+{
+    "data": {
+        "project": {
+            "id": 25,
+            "name": "Take over the world",
+            "dueDate": 1583015361297,
+            "notes": "Almost done",
+            "completed": true,
+            "First Name": "Lebron",
+            "Last Name": "James"
+        }
+    }
+}
+```
+
+#### 400 (Bad Request)
+> If a project with the given id doesn't exist or required information is missing, the endpoint will return an HTTP response with a status code of 400
 
 #### 404 (Not Found)
 > If the given token has expired the endpoint will return an HTTP response with a status code of 404
