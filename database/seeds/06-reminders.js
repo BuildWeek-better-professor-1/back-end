@@ -1,6 +1,6 @@
 
 exports.seed = function(knex) {
-  return knex('reminders').truncate()
+  return knex('reminders').del()
     .then(function () {
       // Inserts seed entries
       return knex('reminders').insert([
