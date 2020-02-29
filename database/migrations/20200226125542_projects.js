@@ -1,13 +1,7 @@
-function createDate(){
-    let randomDay = Math.floor(Math.random() * 8)
-    const today = new Date
-    today.setDate(today.getDate() + randomDay)
-}
 exports.up = function(knex) {
   return knex.schema.createTable('projects', proj => {
         proj.increments()
         proj.date('dueDate')
-            .defaultTo(createDate)
             .notNullable()
         proj.string('name')
             .notNullable()
@@ -24,7 +18,6 @@ exports.up = function(knex) {
   .createTable('reminders', reminders => {
         reminders.increments()
         reminders.date('date')
-            .defaultTo(createDate)
             .notNullable()
         reminders.string('message')
             .notNullable()
