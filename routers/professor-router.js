@@ -105,4 +105,27 @@ router.post('/:id/students', (req, res) => {
         })
 })
 
+router.delete('/:id', (req,res) => {
+    const {type} = req.user
+    const {id} = req.params
+
+    Users.removeUser(id, type)
+        .then(() => {
+            res.status(201).json({
+                data: {
+                    message: 'User Successfully Deleted',
+                    user: {
+                        ...req.user
+                    }
+                }
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err,
+                errorMessage: `There was an error with your ${req.method} request`
+            })
+        })
+})
+
 module.exports = router
