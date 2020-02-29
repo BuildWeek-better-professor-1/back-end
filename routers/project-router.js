@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const Projects = require('../projects/project-model.js')
+const Reminders = require('../reminders/reminders-model.js')
 const validateProjectById = require('../custom-middleware/validateProjectById.js')
 
 router.use('/:id', validateProjectById)
@@ -35,6 +36,40 @@ router.get('/:id', (req, res) => {
             }
         }
     })
+})
+
+router.post('/:id/reminders', (req, res) => {
+    const info = {...req.body, projectId: req.params.id}
+
+    if(!info.message || !info.date || !info.projectId){
+        res.status(400).json({message: 'Required info missing'})
+    }
+    Reminders.addReminder(info)
+        .then(reminder => {
+            res.status(201).json({
+                message: 'Reminder Successfully Created',
+                student: {
+                    id: reminder['Student Id'],
+                    'First Name': reminder['First Name'],
+                    'Last Name': reminder['Last Name'] 
+                },
+                reminder: {
+                    id: reminder.id,
+                    message: reminder.message,
+                    date: reminder.date,
+                    'Project Name': reminder['Project Name'],
+                    "Due Date": reminder['Due Date'],
+                    notes: reminder.notes
+                }
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err,
+                errorMessage: `There was an error with your ${req.method} request`
+            })
+        })
+
 })
 
 router.put('/:id', (req, res) => {
