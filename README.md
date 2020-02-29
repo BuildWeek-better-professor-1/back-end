@@ -347,11 +347,11 @@ authorization |String  | Yes      | token received upon login |
 #### 500 (Internal Error) 
 > If there was a server error retrieving the data, a response with status code 500 will be returned.
 
-## Get All Professors 
+## Get All Student Users 
 
 HTTP request: GET
 
-URL: /api/users/professors
+URL: /api/users/students
 
 ### Headers 
 
@@ -410,7 +410,7 @@ authorization |String  | Yes      | token received upon login |
 #### 500 (Internal Error) 
  > If there was a server error retrieving the data, a response with status code 500 will be returned.
 
- ## Get Single Student 
+ ## Get Single Student User 
 
 HTTP request: GET
 
@@ -460,6 +460,7 @@ Content-Type  |String  | Yes      | Must be application/json  |
  ## Updating A Student
 
 HTTP Request: PUT
+
 URL: /api/users/students/:id/
 
 ### Headers 

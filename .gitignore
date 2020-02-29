@@ -105,4 +105,4 @@ dist
 
 # SQLite3 Databases
 
-.db3
+*.db3
