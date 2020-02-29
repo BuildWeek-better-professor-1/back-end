@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const bcrypt = require('bcryptjs')
 const Students = require('../students/student-model.js')
 const Users = require('../users/users-model.js')
 const restricted = require('../auth/restricted-middleware.js')
@@ -39,6 +40,32 @@ router.get('/:id/students', (req,res) => {
             res.status(200).json({
                 data: {
                     students
+                }
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err,
+                errorMessage: `There was an error with your ${req.method} request`
+            })
+        })
+})
+
+router.put('/:id', (req, res) => {
+    const {id} = req.params
+    const changes = req.body 
+    if(!changes){
+        res.status(400).json({message: 'Required information missing'})
+    }else if(changes.password){
+        const hash = bcrypt.hashSync(changes.password, 8)
+        changes.password = hash
+    }
+    Users.updateUser(id, changes)
+        .then(user => {
+            res.status(200).json({
+                data: {
+                    message: 'User Successfully Updated',
+                    user
                 }
             })
         })
