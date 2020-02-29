@@ -377,30 +377,27 @@ authorization |String  | Yes      | token received upon login |
             {
                 "id": 1,
                 "username": "kb24",
-                "password": "mambamentality",
                 "email": "kobe@lakers.com",
-                "firstName": "Kobe",
-                "lastName": "Bryant",
+                "First Name": "Kobe",
+                "Last Name": "Bryant",
                 "type": "student",
                 "profId": 3
             },
             {
                 "id": 2,
                 "username": "theUniBrow",
-                "password": "kingjames",
                 "email": "anthony3@lakers.com",
-                "firstName": "Anthony",
-                "lastName": "Davis",
+                "First Name": "Anthony",
+                "Last Name": "Davis",
                 "type": "student",
                 "profId": 2
             },
             {
                 "id": 3,
                 "username": "thebrow",
-                "password": "thebrow",
                 "email": "anthony@lakers.com",
-                "firstName": "Anthony",
-                "lastName": "Davis",
+                "First Name": "Anthony",
+                "Last Name": "Davis",
                 "type": "student",
                 "profId": 1
             }
@@ -998,7 +995,7 @@ authorization |String  | Yes      | token received upon login |
 #### 500 (Internal Error) 
  > If there was a server error retrieving the data, a response with status code 500 will be returned.
 
- ## Get Project List
+## Get Project List
 
 HTTP request: GET
 
@@ -1323,11 +1320,11 @@ authorization |String  | Yes      | token received upon login |
 #### 500 (Internal Error) 
 > If there was a server error retrieving the data, a response with status code 500 will be returned.
 
-## Creating A New Project
+## Creating A New Reminder
 
 HTTP Request: POST
 
-URL: /api/students/:id/projects
+URL: /api/projects/:id/reminder
 
 ### Headers 
 
@@ -1341,7 +1338,7 @@ authorization |String  | Yes      | token received upon login |
 Name        | Type    | Required | Description                              |
 ------------|---------|----------| -----------------------------------------|
 message     | String  | Yes      | Reminder message                         | 
-d   ate     | Integer | Yes      | Reminder date(milliseconds)              |
+date        | Integer | Yes      | Reminder date(milliseconds)              |
 
 ### Example
 
@@ -1381,6 +1378,339 @@ d   ate     | Integer | Yes      | Reminder date(milliseconds)              |
 
 #### 400 (Bad Request)
 > If a project with the given id doesn't exist or required information is missing, the endpoint will return an HTTP response with a status code of 400
+
+#### 404 (Not Found)
+> If the given token has expired the endpoint will return an HTTP response with a status code of 404
+
+#### 401 (Unathorized)
+> If no token is sent in header of the request the endpoint will return an HTTP response with a status code of 401
+
+#### 500 (Internal Error) 
+> If there was a server error retrieving the data, a response with status code 500 will be returned.
+
+## Get Single Reminder 
+
+HTTP request: GET
+
+URL: /api/reminders/:id
+
+### Headers 
+
+Name          | Type   |Required  | Description               |
+------------- |--------|----------|---------------------------|
+Content-Type  |String  | Yes      | Must be application/json  |
+authorization |String  | Yes      | token received upon login |
+
+
+### Response 
+
+#### 200 (OK)
+ > If successful, endpoint will return HTTP response with reminder's info
+
+##### Example Response 
+
+ ```javascript
+{
+    "data": {
+        "reminder": {
+            "id": -1,
+            "message": "Have fun",
+            "date": 1582992189459,
+            "Project Name": "Ball out",
+            "Due Date": 1583424189456,
+            "First Name": "Kobe",
+            "Last Name": "Bryant",
+            "Student Id": -1
+        }
+    }
+}
+```
+
+#### 400 (Bad Request)
+ > If a reminders with the given id doesn't exist, the endpoint will return an HTTP response with a status code of 400
+
+#### 404 (Not Found)
+ > If the given token has expired the endpoint will return an HTTP response with a status code of 404
+
+#### 401 (Unathorized)
+ > If no token is sent in header of the request the endpoint will return an HTTP response with a status code of 401
+
+#### 500 (Internal Error) 
+ > If there was a server error retrieving the data, a response with status code 500 will be returned.
+
+ ## Get Reminders By Project
+
+HTTP request: GET
+
+URL: /api/projects/:id/reminders
+
+### Headers 
+
+Name          | Type   |Required  | Description               |
+------------- |--------|----------|---------------------------|
+Content-Type  |String  | Yes      | Must be application/json  |
+authorization |String  | Yes      | token received upon login |
+
+### Response 
+
+#### 200 (OK)
+> If successful, endpoint will return HTTP response with a student info, project info, and array of reminders for given project
+
+##### Example Response 
+
+ ```javascript
+ {
+    "data": {
+        "project": {
+            "id": 7,
+            "name": "Javascript Presentation",
+            "dueDate": 1583337789456,
+            "notes": "",
+            "completed": false
+        },
+        "student": {
+            "id": 5,
+            "First Name": "Michael",
+            "Last Name": "Jordan"
+        },
+        "reminders": [
+            {
+                "id": 7,
+                "message": "Get your stuff done",
+                "date": 1583164989459
+            },
+            {
+                "id": 1,
+                "message": "Get it done",
+                "date": 1583027737891
+            }
+        ]
+    }
+}
+```
+
+#### 400 (Bad Request)
+ > If a project with the given id doesn't exist, the endpoint will return an HTTP response with a status code of 400
+
+#### 404 (Not Found)
+> If the given token has expired the endpoint will return an HTTP response with a status code of 404
+
+#### 401 (Unathorized)
+> If no token is sent in header of the request the endpoint will return an HTTP response with a status code of 401
+
+#### 500 (Internal Error) 
+> If there was a server error retrieving the data, a response with status code 500 will be returned.
+
+## Get Reminders List
+
+HTTP request: GET
+
+URL: /api/reminders
+
+### Headers 
+
+Name          | Type   |Required  | Description               |
+------------- |--------|----------|---------------------------|
+Content-Type  |String  | Yes      | Must be application/json  |
+authorization |String  | Yes      | token received upon login |
+
+### Response 
+
+#### 200 (OK)
+> If successful, endpoint will return HTTP response with an array of all reminders
+
+##### Example Response 
+
+ ```javascript
+ {
+    "data": {
+        "reminders": [
+            {
+                "id": 21,
+                "date": 1582992189459,
+                "message": "Do you need help?",
+                "projectId": 21,
+                "dueDate": 1583078589456,
+                "name": "Mastermind Group",
+                "notes": "",
+                "completed": false,
+                "studentId": 20
+            },
+            {
+                "id": 20,
+                "date": 1583164989459,
+                "message": "Time to do your project",
+                "projectId": 20,
+                "dueDate": 1583078589456,
+                "name": "Dev Time",
+                "notes": "",
+                "completed": false,
+                "studentId": 20
+            },
+            {
+                "id": 19,
+                "date": 1583164989459,
+                "message": "Get your stuff done",
+                "projectId": 19,
+                "dueDate": 1583424189456,
+                "name": "Find Your Happy",
+                "notes": "",
+                "completed": false,
+                "studentId": -19
+            },
+            {
+                "id": 18,
+                "date": 1582992189459,
+                "message": "Do you need help?",
+                "projectId": 18,
+                "dueDate": 1582992189456,
+                "name": "Medical Scares",
+                "notes": "",
+                "completed": false,
+                "studentId": 18
+            },
+            {
+                "id": 17,
+                "date": 1582992189459,
+                "message": "Time to do your project",
+                "projectId": 17,
+                "dueDate": 1583510589456,
+                "name": "Ghana: The Greatest World Power",
+                "notes": "",
+                "completed": false,
+                "studentId": 16
+            },
+            {
+                "id": 16,
+                "date": 1583078589459,
+                "message": "Get your stuff done",
+                "projectId": 16,
+                "dueDate": 1583251389456,
+                "name": "Lunch Meeting",
+                "notes": "",
+                "completed": false,
+                "studentId": 15
+            },
+        ]
+    }
+}
+```
+
+#### 404 (Not Found)
+> If the given token has expired the endpoint will return an HTTP response with a status code of 404
+
+#### 401 (Unathorized)
+> If no token is sent in header of the request the endpoint will return an HTTP response with a status code of 401
+
+#### 500 (Internal Error) 
+> If there was a server error retrieving the data, a response with status code 500 will be returned.
+
+
+## Updating A Reminder
+
+HTTP Request: PUT
+
+URL: /api/reminder/:id
+
+### Headers 
+
+Name          | Type   |Required  | Description               |
+------------- |--------|----------|---------------------------|
+Content-Type  |String  | Yes      | Must be application/json  |
+authorization |String  | Yes      | token received upon login |
+
+### Body 
+
+Name        | Type    | Required | Description                              |
+------------|---------|----------| -----------------------------------------|
+message     | String  | No       | Reminder message                         | 
+date        | Integer | No       | Reminder date(milliseconds)              |
+
+### Example
+
+```javascript
+{
+	"message": "I need this finished",
+	"date": 1583027737891
+}
+```
+
+### Response
+
+#### 201 (Created)
+ > If successful, endpoint will return HTTP response with a message and student's first and last name, reminder info, and related project info
+
+##### Example Response
+
+```javascript
+{
+    "data": {
+        "message": "Reminder Successfully Updated",
+        "reminder": {
+            "id": 3,
+            "message": "I need this finished",
+            "date": 1582992189459,
+            "Project Name": "Ball out",
+            "Due Date": 1583424189456,
+            "First Name": "Kobe",
+            "Last Name": "Bryant",
+            "Student Id": 1
+        }
+    }
+}
+```
+
+#### 400 (Bad Request)
+> If a reminder with the given id doesn't exist or required information is missing, the endpoint will return an HTTP response with a status code of 400
+
+#### 404 (Not Found)
+> If the given token has expired the endpoint will return an HTTP response with a status code of 404
+
+#### 401 (Unathorized)
+> If no token is sent in header of the request the endpoint will return an HTTP response with a status code of 401
+
+#### 500 (Internal Error) 
+> If there was a server error retrieving the data, a response with status code 500 will be returned.
+
+## Deleting A Reminder
+
+HTTP Request: DELETE
+
+URL: /api/reminders/:id
+
+### Headers 
+
+Name          | Type   |Required  | Description               |
+------------- |--------|----------|---------------------------|
+Content-Type  |String  | Yes      | Must be application/json  |
+authorization |String  | Yes      | token received upon login |
+
+### Response
+
+#### 200 (OK)
+ > If successful, endpoint will return HTTP response with a message and the deleted reminders info
+
+##### Example Response
+
+```javascript
+{
+    "data": {
+        "message": "Project Successfully Deleted",
+        "project": {
+            "id": 4,
+            "name": "Learn Express",
+            "dueDate": 1583209538692,
+            "notes": "",
+            "completed": true
+            "First Name": "Damian",
+            "Last Name": "Lilliard"
+        }
+    }
+}
+```
+
+#### 400 (Bad Request)
+> If a reminder with the given id doesn't exist, the endpoint will return an HTTP response with a status code of 400
 
 #### 404 (Not Found)
 > If the given token has expired the endpoint will return an HTTP response with a status code of 404
