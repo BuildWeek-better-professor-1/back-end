@@ -104,5 +104,4 @@ dist
 .tern-port
 
 # SQLite3 Databases
-
 *.db3
