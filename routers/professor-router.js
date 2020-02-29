@@ -4,7 +4,7 @@ const Users = require('../users/users-model.js')
 const restricted = require('../auth/restricted-middleware.js')
 const validateUserById = require('../custom-middleware/validateUserById.js')
 
-router.use('/:id', [restricted,validateUserById])
+router.use('/:id', [restricted, validateUserById])
 
 router.get('/', (req, res) => {
     Users.getProfUsers()
@@ -21,6 +21,14 @@ router.get('/', (req, res) => {
                 errorMessage: `There was an error with your ${req.method} request`
             })
         })
+})
+
+router.get('/:id', (req, res) => {
+    res.status(200).json({
+        data: {
+            user: req.user
+        }
+    })
 })
 
 router.get('/:id/students', (req,res) => {
