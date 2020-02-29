@@ -2,7 +2,7 @@
 exports.up = function(knex) {
   return knex.schema.createTable('projects', proj => {
         proj.increments()
-        proj.timestamp('dueDate')
+        proj.bigInteger('dueDate')
             .notNullable()
         proj.string('name')
             .notNullable()
@@ -18,7 +18,7 @@ exports.up = function(knex) {
   })
   .createTable('reminders', reminders => {
         reminders.increments()
-        reminders.timestamp('date')
+        reminders.bigInteger('date')
             .notNullable()
         reminders.string('message')
             .notNullable()
