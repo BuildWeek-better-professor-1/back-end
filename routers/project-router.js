@@ -37,6 +37,33 @@ router.get('/:id', (req, res) => {
     })
 })
 
+router.put('/:id', (req, res) => {
+    const {id} = req.params
+    const info = req.body
+
+    if(!info.name || !info.notes || !info.dueDate){
+        res.status(400).json({message: 'Required fields missing'})
+    }
+    Projects.updateProject(id, info)
+        .then(project => {
+            res.status(200).json({
+                data: {
+                    message: 'Project successfully updated',
+                    project: {
+                        ...project,
+                        completed: project.completed === 1 ? true : false
+                    }
+                }
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err,
+                errorMessage: `There was an error with your ${req.method} request`
+            })
+        })
+})
+
 router.delete('/:id', (req, res) => {
     const {id} = req.params
 

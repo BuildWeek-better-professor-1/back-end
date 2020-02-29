@@ -4,8 +4,10 @@ module.exports = {
     add,
     findBy,
     findById,
+    updateUser,
+    removeUser,
     getProfUsers,
-    getStudentUsers
+    getStudentUsers,
 }
 
 function getProfUsers(){
@@ -30,8 +32,21 @@ function findById(id, type){
         .first()
 }
 
+function updateUser(id, changes){
+    return db(`${changes.type}Users`)
+        .where({id})
+        .update(changes)
+        .then(() => findById(id, changes.type))
+}
+
 function add(user){
     return db(`${user.type}Users`)
         .insert(user)
         .then(id => findById(id[0], user.type))
+}
+
+function removeUser(id, type){
+    return db(`${type}Users`)
+        .del()
+        .where({id})
 }

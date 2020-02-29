@@ -7,6 +7,7 @@ const authRouter = require('../routers/auth-router.js')
 const profRouter = require('../routers/professor-router.js')
 const studentRouter = require('../routers/student-router.js')
 const projectRouter = require('../routers/project-router.js')
+const studentUsersRouter = require('../routers/studentUsers-router.js')
 
 const server = express()
 
@@ -15,6 +16,7 @@ server.use(helmet())
 server.use(cors())
 server.use('/api/auth', authRouter)
 server.use('/api/users/professor', profRouter)
+server.use('/api/users/students', studentUsersRouter)
 server.use('/api/students', restricted, studentRouter)
 server.use('/api/projects', restricted, projectRouter)
 

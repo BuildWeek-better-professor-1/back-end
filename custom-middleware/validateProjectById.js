@@ -5,7 +5,6 @@ module.exports = async function(req, res, next){
     try {
         const project = await Projects.getProjectById(id)
         if(project){
-            console.log(project)
             req.project = project
             next()
         }else {

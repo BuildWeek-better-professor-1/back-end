@@ -4,7 +4,8 @@ module.exports = {
     getProjects,
     getProjectById,
     addProject,
-    removeProject
+    removeProject,
+    updateProject
 }
 
 function getProjects(){
@@ -31,4 +32,11 @@ function removeProject(id){
     return db('projects')
         .del()
         .where({id})
+}
+
+function updateProject(id, changes){
+    return db('projects')
+        .where({id})
+        .update(changes)
+        .then(() => getProjectById(id))
 }

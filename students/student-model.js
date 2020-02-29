@@ -52,7 +52,7 @@ function addStudent(student){
 
 function updateStudent(id, changes){
     return db('students')
-        .where({id })
+        .where({id})
         .update(changes)
         .then(() => findStudentById(id))
 }
