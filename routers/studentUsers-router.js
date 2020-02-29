@@ -26,7 +26,14 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
     res.status(200).json({
         data: {
-            user: req.user
+            user: {
+                id: req.user.id,
+                username: req.user.username,
+                "First Name": req.user["First Name"],
+                "Last Name": req.user["Last Name"],
+                email: req.user.email,
+                type: req.user.type
+            }
         }
     })
 })
