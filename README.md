@@ -288,7 +288,7 @@ lastName    | String | Yes      | Student's last name                      |
 
 ### Response
 
-#### 200 (OK)
+#### 201 (Created)
  > If successful, endpoint will return HTTP response with a message and the new students id, first name, and last name
 
 ##### Example Response
@@ -659,6 +659,71 @@ authorization |String  | Yes      | token received upon login |
 
 #### 500 (Internal Error) 
  > If there was a server error retrieving the data, a response with status code 500 will be returned.
+
+ ## Creating A New Project
+
+HTTP Request: POST
+URL: /api/students/:id/projects
+
+### Headers 
+
+Name          | Type   |Required  | Description               |
+------------- |--------|----------|---------------------------|
+Content-Type  |String  | Yes      | Must be application/json  |
+authorization |String  | Yes      | token received upon login |
+
+### Body 
+
+Name        | Type    | Required | Description                              |
+------------|---------|----------| -----------------------------------------|
+name        | String  | Yes      | Name of the project                      | 
+dueDate     | Integer | Yes      | Project due date(milliseconds)           |
+notes       | String  | No       | Any notes about the project              |
+
+### Example
+
+```javascript
+{
+	"name": "Take over the world",
+	"dueDate": 1583015361297
+}
+```
+
+### Response
+
+#### 201 (Created)
+ > If successful, endpoint will return HTTP response with a message and the new project's info, and student's first and last name
+
+##### Example Response
+
+```javascript
+{
+    "data": {
+        "message": "Project Successfully Created",
+        "project": {
+            "id": 23,
+            "name": "Take over the world",
+            "dueDate": 1583015361297,
+            "notes": null,
+            "completed": false,
+            "First Name": "Lebron",
+            "Last Name": "James"
+        }
+    }
+}
+```
+
+#### 400 (Bad Request)
+> If a student with the given id doesn't exist or required information is missing, the endpoint will return an HTTP response with a status code of 400
+
+#### 404 (Not Found)
+> If the given token has expired the endpoint will return an HTTP response with a status code of 404
+
+#### 401 (Unathorized)
+> If no token is sent in header of the request the endpoint will return an HTTP response with a status code of 401
+
+#### 500 (Internal Error) 
+> If there was a server error retrieving the data, a response with status code 500 will be returned.
 
 ## Deleting A Project
 

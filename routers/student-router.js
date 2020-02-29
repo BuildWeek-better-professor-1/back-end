@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const Students = require('../students/student-model.js')
+const Projects = require('../projects/project-model.js')
 const validateStudentById = require('../custom-middleware/validateStudentById.js')
 
 router.use('/:id', validateStudentById)
@@ -28,7 +29,38 @@ router.get('/:id/projects', (req, res) => {
                         "First Name": req.student.firstName,
                         "Last Name": req.student.lastName
                     },
-                    projects
+                    projects: projects.map(project => {
+                        return{
+                            ...project,
+                            completed: project.completed === 1 ? true : false
+                        }
+                    })
+                }
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err,
+                errorMessage: `There was an error with your ${req.method} requestt`
+            })
+        })
+})
+
+router.post('/:id/projects', (req, res) => {
+    const info = {...req.body, studentId: req.params.id}
+
+    if(!info.name || !info.dueDate){
+        res.status(400).json({message: 'Name and Due Date are required'})
+    }
+    Projects.addProject(info)
+        .then(project => {
+            res.status(201).json({
+                data: {
+                    message: 'Proejct Successfully Created',
+                    project: {
+                        ...project,
+                        completed: project.completed === 1 ? true : false
+                    }
                 }
             })
         })
@@ -45,7 +77,7 @@ router.put('/:id', (req, res) => {
     const info = req.body
 
     if(!info.firstName || !info.lastName){
-        res.status(401).json({message: 'First name, Last name information is required'})
+        res.status(400).json({message: 'First name, Last name information is required'})
     }
     Students.updateStudent(id, info)
         .then(student => {
