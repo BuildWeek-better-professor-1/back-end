@@ -1,11 +1,12 @@
 const db = require('../database/dbConfig.js')
 
 module.exports = {
-    getProjects,
-    getProjectById,
     addProject,
+    getProjects,
     removeProject,
-    updateProject
+    updateProject,
+    getProjectById,
+    findStudentProjects
 }
 
 function getProjects(){
@@ -22,9 +23,15 @@ function getProjectById(id){
         .first()
 }
 
+function findStudentProjects(id){
+    return db('projects as p')
+        .where('p.studentId', id)
+        .select('id', 'dueDate as Due Date', 'name', 'notes', 'completed')
+}
+
 function addProject(project){
     return db('projects')
-        .insert(project)
+        .insert(project, ['id'])
         .then(id => getProjectById(id[0]))
 }
 
