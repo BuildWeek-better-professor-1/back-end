@@ -41,7 +41,7 @@ function updateUser(id, changes){
 
 function add(user){
     return db(`${user.type}Users`)
-        .insert(user)
+        .insert(user,['id'])
         .then(id => findById(id[0], user.type))
 }
 

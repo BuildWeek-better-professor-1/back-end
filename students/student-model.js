@@ -3,10 +3,10 @@ const db = require('../database/dbConfig.js')
 module.exports = {
     addStudent,
     findStudents,
-    findStudentById,
-    findStudentProjects,
     updateStudent,
-    removeStudent
+    removeStudent,
+    findStudentById,
+    findStudentReminders
 }
 
 async function findStudents(prof){
@@ -29,10 +29,19 @@ function findStudentById(id){
         .first()
 }
 
-function findStudentProjects(id){
-    return db('projects as p')
-        .where('p.studentId', id)
-        .select('id', 'dueDate as Due Date', 'name', 'notes', 'completed')
+function findStudentReminders(id){
+    return db('students as s')
+        .join('projects as p', 'p.studentId', 's.id')
+        .join('reminders as r', 'r.projectId', 'p.id')
+        .select(
+            'r.id',
+            'r.message',
+            'r.date',
+            'p.name as Project Name', 
+            'p.dueDate as Due Date',
+            'p.notes',
+        )
+        .where('s.id', id)
 }
 
 function addStudent(student){
@@ -41,7 +50,7 @@ function addStudent(student){
         .insert({
             firstName: student.firstName,
             lastName: student.lastName
-        })
+        },['id'])
         .then(created => {
             id = created[0]
             return db('student list')
