@@ -5,6 +5,7 @@ module.exports = {
     findBy,
     findById,
     updateUser,
+    removeUser,
     getProfUsers,
     getStudentUsers,
 }
@@ -42,4 +43,10 @@ function add(user){
     return db(`${user.type}Users`)
         .insert(user)
         .then(id => findById(id[0], user.type))
+}
+
+function removeUser(id, type){
+    return db(`${type}Users`)
+        .del()
+        .where({id})
 }
