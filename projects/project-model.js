@@ -14,7 +14,6 @@ function getProjects(){
 }
 
 function getProjectById(id){
-    console.log(id)
     return db('projects as p')
         .join('students as s', 'p.studentId', 's.id')
         .select('p.id','p.name', 'p.dueDate', 'p.notes','p.completed', 's.firstName as First Name', 's.lastName as Last Name')
