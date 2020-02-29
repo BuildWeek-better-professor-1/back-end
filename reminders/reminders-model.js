@@ -5,13 +5,13 @@ module.exports = {
     getReminders,
     removeReminder,
     updateReminder,
-    getRemindersById
+    getRemindersById,
+    getRemindersByProject,
 }
 
 function getReminders(){
     return db('reminders as r')
         .join('projects as p', 'p.id', 'r.projectId')
-        .select
 }
 
 function getRemindersById(id){
@@ -30,6 +30,19 @@ function getRemindersById(id){
         )
         .where('r.id', id)
         .first()
+}
+
+function getRemindersByProject(id){
+    return db('reminders as r')
+        .join('projects as p', 'p.id', 'r.projectId')
+        .join('students as s', 's.id', 'p.studentId')
+        .select(
+            'r.id', 
+            'r.message', 
+            'r.date', 
+            's.id as Student Id'
+        )
+        .where('r.projectId', id)
 }
 
 function addReminder(info){

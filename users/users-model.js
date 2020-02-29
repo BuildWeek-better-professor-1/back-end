@@ -17,6 +17,7 @@ function getProfUsers(){
 
 function getStudentUsers(){
     return db('studentUsers')
+        .select('id', 'username', 'firstName as First Name', 'lastName as Last Name', 'email', 'type', 'porfId')
 }
 
 function findBy(filter, type){

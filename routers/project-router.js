@@ -74,6 +74,44 @@ router.post('/:id/reminders', (req, res) => {
 
 })
 
+router.get('/:id/reminders', (req, res) => {
+    const {id} = req.params
+
+    Reminders.getRemindersByProject(id)
+        .then(reminders => {
+            const studentId = reminders[0]['Student Id']
+            res.status(200).json({
+                data: {
+                    project: {
+                        id: req.project.id,
+                        name: req.project.name,
+                        dueDate: req.project.dueDate,
+                        notes: req.project.notes,
+                        completed: req.project.completed === 1 ? true : false
+                    },
+                    student: {
+                        id: studentId,
+                        "First Name": req.project["First Name"],
+                        "Last Name": req.project["Last Name"]
+                    },
+                    reminders: reminders.map(r => {
+                        return {
+                            id: r.id,
+                            message: r.message,
+                            date: r.date
+                        }
+                    })
+                }
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err,
+                errorMessage: `There was an error with your ${req.method} request`
+            })
+        })
+})
+
 router.put('/:id', (req, res) => {
     const {id} = req.params
     const info = req.body
