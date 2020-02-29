@@ -229,6 +229,61 @@ Content-Type  |String  | Yes      | Must be application/json  |
 #### 500 (Internal Error) 
  > If there was a server error retrieving the data, a response with status code 500 will be returned.
 
+ ## Updating A Professor
+
+HTTP Request: PUT
+URL: /api/users/professor/:id/
+
+### Headers 
+
+Name          | Type   |Required  | Description               |
+------------- |--------|----------|---------------------------|
+Content-Type  |String  | Yes      | Must be application/json  |
+authorization |String  | Yes      | token received upon login |
+
+### Body 
+
+Name        | Type   | Required | Description                              |
+------------|--------|----------| -----------------------------------------|
+firstName   | String | No       | Professor's updated first name           | 
+lastName    | String | No       | Professor's updated last name            |
+email       | String | No       | Professor's updated email                |
+username    | String | No       | Professor's updated username             |
+password    | String | No       | Professors' updated password             |
+type        | String | Yes      | User type(professor)                     |
+
+### Response
+
+#### 200 (OK)
+ > If successful, endpoint will return HTTP response with a message and the updated students id, first name, and last name
+
+##### Example Response
+
+```javascript
+{
+    "data": {
+        "message": "Student Successfully Updated",
+        "student": {
+            "id": 23,
+            "First Name": "Jimbo",
+            "Last Name": "Butler"
+        }
+    }
+}
+```
+
+#### 400 (Bad Request)
+> If a user with the given id doesn't exist, the endpoint will return an HTTP response with a status code of 400
+
+#### 404 (Not Found)
+> If the given token has expired the endpoint will return an HTTP response with a status code of 404
+
+#### 401 (Unathorized)
+> If no token is sent in header of the request the endpoint will return an HTTP response with a status code of 401
+
+#### 500 (Internal Error) 
+> If there was a server error retrieving the data, a response with status code 500 will be returned.
+
 
 ## Get Student List
 
