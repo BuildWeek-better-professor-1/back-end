@@ -20,7 +20,7 @@ router.get('/:id', (req,res) => {
 
 router.get('/:id/projects', (req, res) => {
     const { id } = req.params
-    Students.findStudentProjects(id)
+    Projects.findStudentProjects(id)
         .then(projects => {
             res.status(200).json({
                 data: {
@@ -35,6 +35,30 @@ router.get('/:id/projects', (req, res) => {
                             completed: project.completed === 1 ? true : false
                         }
                     })
+                }
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err,
+                errorMessage: `There was an error with your ${req.method} requestt`
+            })
+        })
+})
+
+router.get('/:id/reminders', (req, res) => {
+    const {id} = req.params
+
+    Students.findStudentReminders(id)
+        .then(reminders => {
+            res.status(200).json({
+                data: {
+                    student: {
+                        "id": req.student.id,
+                        "First Name": req.student.firstName,
+                        "Last Name": req.student.lastName
+                    },
+                    reminders
                 }
             })
         })
