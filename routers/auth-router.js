@@ -24,11 +24,8 @@ router.post('/register', validateUserInfo, (req,res) => {
                 }
             })
         })
-        .catch(err => {
-            res.status(500).json({
-                error: err,
-                errorMessage: `There was an issue with your ${req.method} request`
-            })
+        .catch(({ name, code, message, stack })=> {
+            res.status(500).json({ name, code, message, stack })
         })
     
 })

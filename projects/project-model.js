@@ -31,8 +31,11 @@ function findStudentProjects(id){
 
 function addProject(project){
     return db('projects')
-        .insert(project, ['id'])
-        .then(id => getProjectById(id[0]))
+        .insert(project, 'id')
+        .then(ids => {
+            const [id] = ids
+            return getProjectById(id)
+        })
 }
 
 function removeProject(id){

@@ -61,18 +61,19 @@ function findStudentReminders(id){
 }
 
 function addStudent(student){
-    let id = ''
+    let studentId = ''
     return db('students')
         .insert({
             firstName: student.firstName,
             lastName: student.lastName
-        },['id'])
-        .then(created => {
-            id = created[0]
+        },'id')
+        .then(ids => {
+            const [id] = ids
+            studentId = id
             return db('student list')
-                .insert({studentId: created[0], profId: student.profId})
+                .insert({studentId: id, profId: student.profId})
         })
-        .then(() => findStudentById(id))
+        .then(() => findStudentById(studentId))
 }
 
 function updateStudent(id, changes){

@@ -28,7 +28,7 @@ function findById(id){
 }
 
 function updateUser(id, changes){
-    return db(`${changes.type}Users`)
+    return db(`professorUsers`)
         .where({id})
         .update(changes)
         .then(() => findById(id))
@@ -36,8 +36,11 @@ function updateUser(id, changes){
 
 function add(user){
     return db(`professorUsers`)
-        .insert(user,['id'])
-        .then(id => findById(id[0]))
+        .insert(user,'id')
+        .then(ids => {
+            const [id] = ids
+            return findById(id)
+        })
 }
 
 function removeUser(id){
