@@ -25,6 +25,7 @@ exports.up = function(knex) {
         students.string('lastName')
             .notNullable()
         students.string('username')
+            .unique()
         students.string('email')
         students.string('password')
         students.boolean('registered')
