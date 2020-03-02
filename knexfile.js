@@ -1,49 +1,60 @@
 module.exports = {
 
   development: {
-    client: 'sqlite3',
+    client: 'pg',
     useNullAsDefault: true,
     connection: {
-      filename: './database/users.db3'
+      host: '127.0.0.1',
+			user: 'postgres',
+			password: process.env.DB_URL,
+			database: 'professor-app'
     }, 
     migrations: {
-      directory: './database/migrations'
+      directory: './database/migrations',
+      tableName: 'knex_migrations'
     },
     seeds: {
       directory: './database/seeds'
     },
     pool: {
-      afterCreate: ((conn, done) => {
-        conn.run('PRAGMA foreign_keys=ON', done)
-      })
-    }
+      min: 2,
+      max: 10
+    },
   },
 
   staging: {
-    client: 'postgresql',
+    client: 'pg',
+    useNullAsDefault: true,
     connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
+      host: '127.0.0.1',
+			user: 'postgres',
+			password: process.env.DB_URL,
+			database: 'professor-app-test'
+    }, 
+    migrations: {
+      directory: './database/migrations',
+      tableName: 'knex_migrations'
+    },
+    seeds: {
+      directory: './database/seeds'
     },
     pool: {
       min: 2,
       max: 10
     },
-    migrations: {
-      tableName: 'knex_migrations'
-    }
   },
 
   production: {
     client: 'pg',
     connection: process.env.DATABASE_URL,
+    useNullAsDefault: true,
     pool: {
       min: 2,
       max: 10
     },
     migrations: {
-      directory: './database/migrations'
+      directory: './database/migrations',
+      tableName: 'knex_migrations'
     },
     seeds: {
       directory: './database/seeds'

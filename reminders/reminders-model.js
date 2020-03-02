@@ -47,8 +47,11 @@ function getRemindersByProject(id){
 
 function addReminder(info){
     return db('reminders')
-        .insert(info, ['id'])
-        .then(id=> getRemindersById(id[0]))
+        .insert(info, 'id')
+        .then(ids=> {
+            const [id] = ids
+            return getRemindersById(id)
+        })
 }
 
 function updateReminder(id, changes){
