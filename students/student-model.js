@@ -5,6 +5,7 @@ module.exports = {
     findStudents,
     updateStudent,
     removeStudent,
+    findStudentBy,
     findStudentById,
     findStudentReminders
 }
@@ -17,15 +18,30 @@ async function findStudents(prof){
             's.id',
             's.firstName',
             's.lastName', 
+            's.registered',
             'u.firstName as Prof First Name',
             'u.lastName as Prof Last Name',
             )
         .where('sl.profId', prof)
 }
 
+function findStudentBy(filter){
+    return db('students')
+        .where('username', filter)
+        .first()
+}
+
 function findStudentById(id){
     return db('students')
         .where('students.id', id)
+        .select(
+            'id',
+            'username',
+            'firstName as First Name', 
+            'lastName as Last Name',
+            'email',
+            'registered'
+            )
         .first()
 }
 

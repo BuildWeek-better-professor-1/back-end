@@ -1,8 +1,9 @@
 const router = require('express').Router()
-const Users = require('../users/users-model.js')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const secrets = require('../config/secrets.js')
+const Users = require('../users/users-model.js')
+const Students = require('../students/student-model.js')
 const validateUserInfo = require('../custom-middleware/validateUserInfo.js')
 
 router.post('/register', validateUserInfo, (req,res) => {
@@ -33,12 +34,13 @@ router.post('/register', validateUserInfo, (req,res) => {
 })
 
 router.post('/login', (req, res) => {
-    const {username, password, type} = req.body
+    const {username, password} = req.body
+    const {type} = req.query
 
     if(!username || !password){
         res.status(400).json({errorMessage: `Username and password required`})
-    }else{
-        Users.findBy(username, type)
+    }else if(type==='p'){
+        Users.findBy(username)
             .then(saved => {
                 if(saved && bcrypt.compareSync(password, saved.password)){
                     const token = generateToken(saved)
@@ -50,8 +52,7 @@ router.post('/login', (req, res) => {
                                 username: saved.username,
                                 "First Name": saved.firstName,
                                 "Last Name": saved.lastName,
-                                email: saved.email,
-                                type: saved.type
+                                email: saved.email
                             },
                             token
                         }
@@ -66,6 +67,35 @@ router.post('/login', (req, res) => {
                     errorMessage: `There was an issue with your ${req.method} request`
                 })
             })
+    }else{
+        Students.findStudentBy(username)
+        .then(saved => {
+            if(saved && bcrypt.compareSync(password, saved.password)){
+                const token = generateToken(saved)
+                res.status(200).json({
+                    data: {
+                        message: `Welcome ${saved.firstName}`,
+                        user: {
+                            id: saved.id,
+                            username: saved.username,
+                            "First Name": saved.firstName,
+                            "Last Name": saved.lastName,
+                            email: saved.email,
+                            registered: saved.registered === 1 ? true : false
+                        },
+                        token
+                    }
+                })
+            }else{
+                res.status(401).json({message: `Invalid credentials`})
+            }
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err,
+                errorMessage: `There was an issue with your ${req.method} request`
+            })
+        })
     }
 })
 

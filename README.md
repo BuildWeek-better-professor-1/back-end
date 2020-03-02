@@ -3,7 +3,7 @@
 ## Base URL
 https://better-professor-app-1.herokuapp.com/
 
-## Register A New User
+## Register A New Professor
 
 HTTP Method: POST
 
@@ -20,13 +20,11 @@ Content-Type |String  | Yes    | Must be application/json|
 
 Name       | Type    | Required | Description                                        |
 -----------|-------- |----------| ---------------------------------------------------|
-type       | String  | Yes      | User's type(professor/student)                     |
 firstName  | String  | Yes      | User's first name                                  |
 lastName   | String  | No       | User's last name                                   |
 email      | String  | Yes      | User's email address                               |
 username   | String  | Yes      | User's desired username(must be unique)            |
 password   | String  | Yes      | User's password(must be at least 6 chars)          |
-profId     | Integer | No       | Student's Professor Id(required for student types) |
 
 ### Example 
 
@@ -37,15 +35,14 @@ profId     | Integer | No       | Student's Professor Id(required for student ty
     lastName: "Lillard",
     password: 'dame',
     email: "dame@blazers.com",
-    type: "student",
-    profId: 2
+    type: "professor",
 }
 ```
 
 ### Response
 
 #### 201 (Created)
- > If successfully registered, endpoint will return HTTP response with status code and a body with a token, user's first and last name, id, email address, username, type, and welcome message
+ > If successfully registered, endpoint will return HTTP response with status code and a body with a token, user's first and last name, id, email address, username, and welcome message
 
 ##### Example Response
 
@@ -72,6 +69,78 @@ profId     | Integer | No       | Student's Professor Id(required for student ty
 #### 500 (Internal Error) 
 > If there was a server error registering the user, a response with status code 500 will be returned.
 
+## Register A New Student
+
+HTTP Method: PUT
+
+URL: /api/students/:id
+
+### Headers 
+
+Name         | Type   |Required| Description             |
+-------------|--------|--------|-------------------------|
+Content-Type |String  | Yes    | Must be application/json|
+
+### Params 
+Name         | Type    |Required  | Description              |
+-------------|---------|----------|--------------------------|
+register     | boolean | Yes      | must be TRUE             |
+
+
+### Body 
+
+Name       | Type    | Required | Description                                        |
+-----------|-------- |----------| ---------------------------------------------------|
+firstName  | String  | Yes      | User's first name                                  |
+lastName   | String  | No       | User's last name                                   |
+email      | String  | Yes      | User's email address                               |
+username   | String  | Yes      | User's desired username(must be unique)            |
+password   | String  | Yes      | User's password(must be at least 6 chars)          |
+registered | Boolean | Yes      | Must be set to TRUE                                |
+
+### Example 
+
+```javascript
+{
+    username: "kingjames",
+    firstName: "Lebron",
+    lastName: "James",
+    password: 'kingjames',
+    email: "lebron@lakers.com",
+    registered: true
+}
+```
+
+### Response
+
+#### 200 (OK)
+ > If successfully registered, endpoint will return HTTP response with status code and a body with a token, user's first and last name, id, email address, username, and welcome message
+
+##### Example Response
+
+```javascript
+{
+    "data": {
+        "message": "Student Successfully Updated",
+        "student": {
+            "id": -2,
+            "username": "kingjames",
+            "First Name": "Lebron",
+            "Last Name": "James",
+            "email": "lebron@lakers.com",
+            "registered": true
+        },
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjotMiwidXNlcm5hbWUiOiJraW5namFtZXMiLCJpYXQiOjE1ODMxMjg5NDIsImV4cCI6MTU4MzEzMjU0Mn0.s5kwhlEcNc3sdRNmESWIeTbBCutIs6wKL0j9TxNcHRs"
+    }
+}
+```
+
+#### 400 (Bad Request)
+> If required information is missing, the endpoint will return an HTTP response with a status code of 400
+
+#### 500 (Internal Error) 
+> If there was a server error registering the user, a response with status code 500 will be returned.
+
 ## Log In A User
 
 HTTP Method: Post
@@ -84,6 +153,11 @@ Name         | Type   |Required  | Description             |
 -------------|--------|----------|-------------------------|
 Content-Type |String  | Yes      | Must be application/json|
 
+### Params 
+Name         | Type   |Required  | Description              |
+-------------|--------|----------|--------------------------|
+type         | string | Yes      | User type(either p OR s) |
+
 
 ### Body 
 
@@ -91,7 +165,6 @@ Name       | Type   | Required | Description                              |
 -----------|--------|----------| -----------------------------------------|
 username   | String | Yes      | User's username at registration          |
 password   | String | Yes      | User's chosen password                   |
-type       | String | Yes      | User's type(professor/student)           |
 
 ### Example 
 
@@ -99,14 +172,13 @@ type       | String | Yes      | User's type(professor/student)           |
 {
     username: 'DameDolla',
     password: 'dame',
-    type: 'student'
 }
 ```
 
 ### Response
 
 #### 200 (OK)
-> If successfully registered, endpoint will return HTTP response with status code and a body with a token and user's id, first name, last name, type and email address
+> If successfully logged in, endpoint will return HTTP response with status code welcome message, a token and user's id, username, first name, last name, and email address
 
 ##### Example Response
  ```javascript
@@ -119,7 +191,6 @@ type       | String | Yes      | User's type(professor/student)           |
             "First Name": "Damian",
             "Last Name": "Lillard",
             "email": "dame@blazers.com",
-            "type": "student"
         },
         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo0LCJ1c2VybmFtZSI6IkRhbWVEb2xsYSIsImlhdCI6MTU4Mjg2MDU4MCwiZXhwIjoxNTgyODY0MTgwfQ.AIE0cmqz1oTKte1XhIqU4m9935GWYxqqqhA6JHUyts4"
     }
@@ -193,12 +264,13 @@ URL: /api/users/professors/:id
 Name          | Type   |Required  | Description               |
 ------------- |--------|----------|---------------------------|
 Content-Type  |String  | Yes      | Must be application/json  |
+authorization |String  | Yes      | token received upon login |
 
 
 ### Response 
 
 #### 200 (OK)
- > If successful, endpoint will return HTTP response with an array of all professors
+ > If successful, endpoint will return HTTP response with single professors information
 
 ##### Example Response 
 
@@ -251,7 +323,6 @@ lastName    | String | No       | Professor's updated last name            |
 email       | String | No       | Professor's updated email                |
 username    | String | No       | Professor's updated username             |
 password    | String | No       | Professors' updated password             |
-type        | String | Yes      | User type(professor)                     |
 
 ### Example 
 
@@ -261,7 +332,6 @@ type        | String | Yes      | User type(professor)                     |
     "First Name": "Severus",
     "Last Name": "Snape",
     "email": "severus@hogwarts.com",
-    "type": "professor", // required
     "password": "SlytherinPrince"
 }
 ```
@@ -269,7 +339,7 @@ type        | String | Yes      | User type(professor)                     |
 ### Response
 
 #### 200 (OK)
- > If successful, endpoint will return HTTP response with a message and the updated students id, first name, and last name
+ > If successful, endpoint will return HTTP response with a message and the updated professors info
 
 ##### Example Response
 
@@ -317,7 +387,7 @@ authorization |String  | Yes      | token received upon login |
 ### Response
 
 #### 200 (OK)
- > If successful, endpoint will return HTTP response with a message and the deleted students id, first name, and last name
+ > If successful, endpoint will return HTTP response with a message and the deleted professor's info
 
 ##### Example Response
 
@@ -349,233 +419,6 @@ authorization |String  | Yes      | token received upon login |
 #### 500 (Internal Error) 
 > If there was a server error retrieving the data, a response with status code 500 will be returned.
 
-## Get All Student Users 
-
-HTTP request: GET
-
-URL: /api/users/students
-
-### Headers 
-
-Name          | Type   |Required  | Description               |
-------------- |--------|----------|---------------------------|
-Content-Type  |String  | Yes      | Must be application/json  |
-authorization |String  | Yes      | token received upon login |
-
-
-### Response 
-
-#### 200 (OK)
- > If successful, endpoint will return HTTP response with an array of all student users
-
-##### Example Response 
-
- ```javascript
-{
-    "data": {
-        "studentUsers": [
-            {
-                "id": 1,
-                "username": "kb24",
-                "email": "kobe@lakers.com",
-                "First Name": "Kobe",
-                "Last Name": "Bryant",
-                "type": "student",
-                "profId": 3
-            },
-            {
-                "id": 2,
-                "username": "theUniBrow",
-                "email": "anthony3@lakers.com",
-                "First Name": "Anthony",
-                "Last Name": "Davis",
-                "type": "student",
-                "profId": 2
-            },
-            {
-                "id": 3,
-                "username": "thebrow",
-                "email": "anthony@lakers.com",
-                "First Name": "Anthony",
-                "Last Name": "Davis",
-                "type": "student",
-                "profId": 1
-            }
-        ]
-    }
-}
-```
-
-#### 500 (Internal Error) 
- > If there was a server error retrieving the data, a response with status code 500 will be returned.
-
- ## Get Single Student User 
-
-HTTP request: GET
-
-URL: /api/users/students/:id
-
-### Headers 
-
-Name          | Type   |Required  | Description               |
-------------- |--------|----------|---------------------------|
-Content-Type  |String  | Yes      | Must be application/json  |
-
-
-### Response 
-
-#### 200 (OK)
- > If successful, endpoint will return HTTP response with an array of all professors
-
-##### Example Response 
-
- ```javascript
-{
-    "data": {
-        "user": {
-            "id": 2,
-            "username": "theUniBrow",
-            "First Name": "Anthony",
-            "Last Name": "Davis",
-            "email": "anthony3@lakers.com",
-            "type": "student"
-        }
-    }
-}
-```
-
-#### 400 (Bad Request)
-> If a student user with the given id doesn't exist, the endpoint will return an HTTP response with a status code of 400
-
-#### 404 (Not Found)
-> If the given token has expired the endpoint will return an HTTP response with a status code of 404
-
-#### 401 (Unathorized)
-> If no token is sent in header of the request the endpoint will return an HTTP response with a status code of 401
-
-#### 500 (Internal Error) 
- > If there was a server error retrieving the data, a response with status code 500 will be returned.
-
- ## Updating A Student
-
-HTTP Request: PUT
-
-URL: /api/users/students/:id/
-
-### Headers 
-
-Name          | Type   |Required  | Description               |
-------------- |--------|----------|---------------------------|
-Content-Type  |String  | Yes      | Must be application/json  |
-authorization |String  | Yes      | token received upon login |
-
-### Body 
-
-Name        | Type   | Required | Description                              |
-------------|--------|----------| -----------------------------------------|
-firstName   | String | No       | Student User's updated first name        | 
-lastName    | String | No       | Student User's updated last name         |
-email       | String | No       | Student User's updated email             |
-username    | String | No       | Student User's updated username          |
-password    | String | No       | Student User's updated password          |
-type        | String | Yes      | User type(student)                       |
-
-### Example 
-
-```javascript
-{
-    "username": "theUniBrow",
-    "firstName": "Anthony",
-    "lastName": "Davis",
-    "email": "anthony3@lakers.com",
-    "type": "student"
-}
-```
-
-### Response
-
-#### 200 (OK)
- > If successful, endpoint will return HTTP response with a message and the updated students id, first name, and last name
-
-##### Example Response
-
-```javascript
-{
-    "data": {
-        "message": "User Successfully Updated",
-        "user": {
-            "id": 2,
-            "username": "theUniBrow",
-            "First Name": "Anthony",
-            "Last Name": "Davis",
-            "email": "anthony3@lakers.com",
-            "type": "student"
-        }
-    }
-}
-```
-
-#### 400 (Bad Request)
-> If a student user with the given id doesn't exist, the endpoint will return an HTTP response with a status code of 400
-
-#### 404 (Not Found)
-> If the given token has expired the endpoint will return an HTTP response with a status code of 404
-
-#### 401 (Unathorized)
-> If no token is sent in header of the request the endpoint will return an HTTP response with a status code of 401
-
-#### 500 (Internal Error) 
-> If there was a server error retrieving the data, a response with status code 500 will be returned.
-
-## Deleting A Student User
-
-HTTP Request: DELETE
-
-URL: /api/users/students/:id
-
-### Headers 
-
-Name          | Type   |Required  | Description               |
-------------- |--------|----------|---------------------------|
-Content-Type  |String  | Yes      | Must be application/json  |
-authorization |String  | Yes      | token received upon login |
-
-### Response
-
-#### 200 (OK)
- > If successful, endpoint will return HTTP response with a message and the deleted students id, first name, and last name
-
-##### Example Response
-
-```javascript
-{
-    "data": {
-        "message": "User Successfully Deleted",
-        "user": {
-            "id": 3,
-            "username": "thebrow",
-            "First Name": "Anthony",
-            "Last Name": "Davis",
-            "email": "anthony@lakers.com",
-            "type": "student"
-        }
-    }
-}
-```
-
-#### 400 (Bad Request)
-> If a student user with the given id doesn't exist, the endpoint will return an HTTP response with a status code of 400
-
-#### 404 (Not Found)
-> If the given token has expired the endpoint will return an HTTP response with a status code of 404
-
-#### 401 (Unathorized)
-> If no token is sent in header of the request the endpoint will return an HTTP response with a status code of 401
-
-#### 500 (Internal Error) 
-> If there was a server error retrieving the data, a response with status code 500 will be returned.
-
-
 ## Get Student List
 
 HTTP request: GET
@@ -589,6 +432,12 @@ Name          | Type   |Required  | Description               |
 Content-Type  |String  | Yes      | Must be application/json  |
 authorization |String  | Yes      | token received upon login |
 
+### Params 
+
+Name          | Type    |Required  | Description                                                |
+------------- |---------|----------|------------------------------------------------------------|
+r             | Boolean | No       | If set to TRUE only unregistered students will be returned | 
+
 ### Response 
 
 #### 200 (OK)
@@ -597,13 +446,14 @@ authorization |String  | Yes      | token received upon login |
 ##### Example Response 
 
  ```javascript
- {
+{
     "data": {
         "students": [
             {
                 "id": 1,
                 "firstName": "Kobe",
                 "lastName": "Bryant",
+                "registered": true,
                 "Prof First Name": "Harry",
                 "Prof Last Name": "Potter"
             },
@@ -611,6 +461,7 @@ authorization |String  | Yes      | token received upon login |
                 "id": 2,
                 "firstName": "Lebron",
                 "lastName": "James",
+                "registered": true,
                 "Prof First Name": "Harry",
                 "Prof Last Name": "Potter"
             },
@@ -618,6 +469,7 @@ authorization |String  | Yes      | token received upon login |
                 "id": 3,
                 "firstName": "Damian",
                 "lastName": "Lilliard",
+                "registered": true,
                 "Prof First Name": "Harry",
                 "Prof Last Name": "Potter"
             },
@@ -625,6 +477,7 @@ authorization |String  | Yes      | token received upon login |
                 "id": 4,
                 "firstName": "Anthony",
                 "lastName": "Davis",
+                "registered": false,
                 "Prof First Name": "Harry",
                 "Prof Last Name": "Potter"
             },
@@ -632,6 +485,7 @@ authorization |String  | Yes      | token received upon login |
                 "id": 5,
                 "firstName": "Michael",
                 "lastName": "Jordan",
+                "registered": true,
                 "Prof First Name": "Harry",
                 "Prof Last Name": "Potter"
             },
@@ -639,6 +493,7 @@ authorization |String  | Yes      | token received upon login |
                 "id": 6,
                 "firstName": "Magic",
                 "lastName": "Johnson",
+                "registered": false,
                 "Prof First Name": "Harry",
                 "Prof Last Name": "Potter"
             }
@@ -702,7 +557,8 @@ lastName    | String | Yes      | Student's last name                      |
         "student": {
             "id": 23,
             "First Name": "Jimmy",
-            "Last Name": "Butler"
+            "Last Name": "Butler",
+            registered: false
         }
     }
 }
@@ -720,7 +576,7 @@ lastName    | String | Yes      | Student's last name                      |
 #### 500 (Internal Error) 
 > If there was a server error retrieving the data, a response with status code 500 will be returned.
 
-## Updating A New Student
+## Updating A Student
 
 HTTP Request: PUT
 
@@ -737,22 +593,28 @@ authorization |String  | Yes      | token received upon login |
 
 Name        | Type   | Required | Description                              |
 ------------|--------|----------| -----------------------------------------|
-firstName   | String | Yes      | Student's first name                     | 
-lastName    | String | Yes      | Student's last name                      |
+firstName   | String | No       | Student's first name                     | 
+lastName    | String | No       | Student's last name                      |
+email       | String | No       | Student's email                          |
+username    | String | No       | Student's username                       |
+password    | String | No       | Student's password                       |
+registered  | boolean| No       | Student registrsation status             |
 
 ### Example 
 
 ```javascript
 {
-	"firstName": "Jimbo",
-	"lastName": "Butler"
+        "username": "brickcity",
+        "First Name": "Ben",
+        "Last Name": "Simmons",
+        "email": "ben@sixers.com",
 }
 ```
 
 ### Response
 
 #### 200 (OK)
- > If successful, endpoint will return HTTP response with a message and the updated students id, first name, and last name
+ > If successful, endpoint will return HTTP response with a message and the updated students info
 
 ##### Example Response
 
@@ -761,10 +623,14 @@ lastName    | String | Yes      | Student's last name                      |
     "data": {
         "message": "Student Successfully Updated",
         "student": {
-            "id": 23,
-            "First Name": "Jimbo",
-            "Last Name": "Butler"
-        }
+            "id": 3,
+            "username": "brickcity",
+            "First Name": "Ben",
+            "Last Name": "Simmons",
+            "email": "ben@sixers.com",
+            "registered": true
+        },
+        "token": null
     }
 }
 ```
@@ -797,7 +663,7 @@ authorization |String  | Yes      | token received upon login |
 ### Response
 
 #### 200 (OK)
- > If successful, endpoint will return HTTP response with a message and the deleted students id, first name, and last name
+ > If successful, endpoint will return HTTP response with a message and the deleted students info
 
 ##### Example Response
 
@@ -806,9 +672,12 @@ authorization |String  | Yes      | token received upon login |
     "data": {
         "message": "Student Successfully deleted",
         "student": {
-            "id": 23,
-            "First Name": "Jimmy",
-            "Last Name": "Butler"
+            "id": -15,
+            "First Name": "Kyrie",
+            "Last Name": "Irving",
+            "username": "uncledrew",
+            "email": "kyrie@nets.com",
+            "registered": true
         }
     }
 }
@@ -843,17 +712,20 @@ authorization |String  | Yes      | token received upon login |
 ### Response 
 
 #### 200 (OK)
- > If successful, endpoint will return HTTP response with students id, first name, and last name
+ > If successful, endpoint will return HTTP response with students info
 
 ##### Example Response 
 
  ```javascript
- {
+{
     "data": {
         "student": {
-            "id": 3,
-            "First Name": "Damian",
-            "Last Name": "Lilliard"
+            "id": 4,
+            "First Name": "Anthony",
+            "Last Name": "Davis",
+            "username": null,
+            "email": null,
+            "registered": false
         }
     }
 }

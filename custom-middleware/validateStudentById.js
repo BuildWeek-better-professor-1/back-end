@@ -2,7 +2,6 @@ const Students = require('../students/student-model.js')
 
 module.exports = async function(req, res, next){
     const { id } = req.params
-    console.log(id)
     try {
         const student = await Students.findStudentById(id)
         if(student){

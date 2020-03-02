@@ -2,9 +2,8 @@ const Users = require('../users/users-model.js')
 
 module.exports = async function(req, res, next){
     const { id } = req.params
-    const type = req.baseUrl.includes('professor') ? 'professor' : 'student'
     try {
-        const user = await Users.findById(id, type)
+        const user = await Users.findById(id)
         if(user){
             req.user = user
             next()

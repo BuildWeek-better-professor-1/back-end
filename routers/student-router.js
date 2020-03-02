@@ -1,24 +1,31 @@
 const router = require('express').Router()
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+const secrets = require('../config/secrets.js')
 const Students = require('../students/student-model.js')
 const Projects = require('../projects/project-model.js')
+const restricted = require('../auth/restricted-middleware.js')
 const validateStudentById = require('../custom-middleware/validateStudentById.js')
 
 router.use('/:id', validateStudentById)
 
 
-router.get('/:id', (req,res) => {
+router.get('/:id', restricted, (req,res) => {
     res.status(200).json({
         data: {
             student: {
                 "id": req.student.id,
-                "First Name": req.student.firstName,
-                "Last Name": req.student.lastName
+                "First Name": req.student['First Name'],
+                "Last Name": req.student['Last Name'],
+                username: req.student.username,
+                email: req.student.email,
+                registered: req.student.registered === 1 ? true : false
             }
         }
     })
 })
 
-router.get('/:id/projects', (req, res) => {
+router.get('/:id/projects', restricted, (req, res) => {
     const { id } = req.params
     Projects.findStudentProjects(id)
         .then(projects => {
@@ -26,8 +33,8 @@ router.get('/:id/projects', (req, res) => {
                 data: {
                     student: {
                         "id": req.student.id,
-                        "First Name": req.student.firstName,
-                        "Last Name": req.student.lastName
+                        "First Name": req.student['First Name'],
+                        "Last Name": req.student['Last Name']
                     },
                     projects: projects.map(project => {
                         return{
@@ -46,17 +53,16 @@ router.get('/:id/projects', (req, res) => {
         })
 })
 
-router.get('/:id/reminders', (req, res) => {
+router.get('/:id/reminders', restricted, (req, res) => {
     const {id} = req.params
-
     Students.findStudentReminders(id)
         .then(reminders => {
             res.status(200).json({
                 data: {
                     student: {
-                        "id": req.student.id,
-                        "First Name": req.student.firstName,
-                        "Last Name": req.student.lastName
+                        id: req.student.id,
+                        "First Name": req.student['First Name'],
+                        "Last Name": req.student['Last Name']
                     },
                     reminders
                 }
@@ -70,7 +76,7 @@ router.get('/:id/reminders', (req, res) => {
         })
 })
 
-router.post('/:id/projects', (req, res) => {
+router.post('/:id/projects', restricted, (req, res) => {
     const info = {...req.body, studentId: req.params.id}
 
     if(!info.name || !info.dueDate){
@@ -98,16 +104,27 @@ router.post('/:id/projects', (req, res) => {
 
 router.put('/:id', (req, res) => {
     const { id } = req.params
-    const info = req.body
+    const info = req.body ? req.body : false
+    const {register} = req.query
 
-    if(!info.firstName || !info.lastName){
-        res.status(400).json({message: 'First name, Last name information is required'})
+    if(!info){
+        res.status(400).json({message: 'Required information is missing'})
+    }else if(info.password){
+        const hash = bcrypt.hashSync(info.password, 8)
+        info.password = hash
     }
     Students.updateStudent(id, info)
         .then(student => {
+            const token = register ? generateToken(student) : null
             res.status(200).json({
-                message: 'Student Successfully Updated',
-                student
+                data: {
+                    message: 'Student Successfully Updated',
+                    student: {
+                        ...student,
+                        registered: student.registered === 1 ? true : false
+                    },
+                    token
+                }
             })
         })
         .catch(err => {
@@ -118,8 +135,9 @@ router.put('/:id', (req, res) => {
         })
 })
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', restricted, (req, res) => {
     const {id} = req.params
+    console.log(req.student)
 
     Students.removeStudent(id)
         .then(() => {
@@ -128,8 +146,11 @@ router.delete('/:id', (req, res) => {
                     message: 'Student Successfully deleted',
                     student: {
                         "id": req.student.id,
-                        "First Name": req.student.firstName,
-                        "Last Name": req.student.lastName
+                        "First Name": req.student['First Name'],
+                        "Last Name": req.student['Last Name'],
+                        username: req.student.username,
+                        email: req.student.email,
+                        registered: req.student.registered === 1 ? true : false
                     }
                 }
 
@@ -142,5 +163,20 @@ router.delete('/:id', (req, res) => {
             })
         })
 })
+
+// Generate Token
+
+function generateToken(user){
+    const payload = {
+        subject: user.id,
+        username: user.username
+    }
+
+    const options = {
+        expiresIn: '1h'
+    }
+
+    return jwt.sign(payload, secrets.jwtSecret, options)
+}
 
 module.exports = router

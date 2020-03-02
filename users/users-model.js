@@ -7,7 +7,6 @@ module.exports = {
     updateUser,
     removeUser,
     getProfUsers,
-    getStudentUsers,
 }
 
 function getProfUsers(){
@@ -15,21 +14,16 @@ function getProfUsers(){
         .select('id', 'firstName as First Name', 'lastName as Last Name')
 }
 
-function getStudentUsers(){
-    return db('studentUsers')
-        .select('id', 'username', 'firstName as First Name', 'lastName as Last Name', 'email', 'type', 'porfId')
-}
-
-function findBy(filter, type){
-    return db(`${type}Users`)
+function findBy(filter){
+    return db(`professorUsers`)
         .where('username', filter)
         .first()
 }
 
-function findById(id, type){
-    return db(`${type}Users`)
+function findById(id){
+    return db(`professorUsers`)
         .where({id})
-        .select('id', 'username', 'firstName as First Name', 'lastName as Last Name', 'email', 'type')
+        .select('id', 'username', 'firstName as First Name', 'lastName as Last Name', 'email')
         .first()
 }
 
@@ -37,17 +31,17 @@ function updateUser(id, changes){
     return db(`${changes.type}Users`)
         .where({id})
         .update(changes)
-        .then(() => findById(id, changes.type))
+        .then(() => findById(id))
 }
 
 function add(user){
-    return db(`${user.type}Users`)
+    return db(`professorUsers`)
         .insert(user,['id'])
-        .then(id => findById(id[0], user.type))
+        .then(id => findById(id[0]))
 }
 
-function removeUser(id, type){
-    return db(`${type}Users`)
+function removeUser(id){
+    return db(`professorUsers`)
         .del()
         .where({id})
 }
