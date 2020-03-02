@@ -14,8 +14,6 @@ exports.up = function(knex) {
             .notNullable()
         users.string('lastName')
             .defaultTo('')
-        users.string('type')
-            .notNullable()
   })
 
   .createTable('students', students => {
