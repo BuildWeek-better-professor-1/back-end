@@ -34,8 +34,7 @@ password   | String  | Yes      | User's password(must be at least 6 chars)     
     firstName: "Damian",
     lastName: "Lillard",
     password: 'dame',
-    email: "dame@blazers.com",
-    type: "professor",
+    email: "dame@blazers.com"
 }
 ```
 
@@ -55,8 +54,7 @@ password   | String  | Yes      | User's password(must be at least 6 chars)     
             "username": "DameDolla",
             "First Name": "Damian",
             "Last Name": "Lillard",
-            "email": "dame@blazers.com",
-            "type": "student"
+            "email": "dame@blazers.com"
         },
         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo0LCJ1c2VybmFtZSI6IkRhbWVEb2xsYSIsImlhdCI6MTU4Mjg2MDQ1MCwiZXhwIjoxNTgyODY0MDUwfQ.45T0cuAYZSyb5XYLJqdIent0zAJZTDgV7z-ZGdhOJm0"
     }
