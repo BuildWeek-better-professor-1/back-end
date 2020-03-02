@@ -5,7 +5,7 @@ const Users = require('../users/users-model.js')
 const restricted = require('../auth/restricted-middleware.js')
 const validateUserById = require('../custom-middleware/validateUserById.js')
 
-router.use('/:id', [restricted, validateUserById])
+router.use('/:id', validateUserById)
 
 router.get('/', (req, res) => {
     Users.getProfUsers()
@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
         })
 })
 
-router.get('/:id', (req, res) => {
+router.get('/:id', restricted, (req, res) => {
     res.status(200).json({
         data: {
             user: req.user
@@ -34,14 +34,35 @@ router.get('/:id', (req, res) => {
 
 router.get('/:id/students', (req,res) => {
     const { id } = req.params
+    const registered = req.query.r ? req.query.r : false
 
     Students.findStudents(id)
         .then(students => {
-            res.status(200).json({
-                data: {
-                    students
-                }
-            })
+            if(!registered){
+                res.status(200).json({
+                    data: {
+                        students: students.map(student => {
+                            return {
+                                ...student,
+                                registered: student.registered === 1 ? true : false
+                            }
+                        })
+                    }
+                })
+            }else{
+                res.status(200).json({
+                    data: {
+                        students: students.map(student => {
+                            return {
+                                ...student,
+                                registered: student.registered === 1 ? true : false
+                            }
+                        }).filter(student => {
+                            return !student.registered
+                        })
+                    }
+                })
+            }
         })
         .catch(err => {
             res.status(500).json({
@@ -51,7 +72,7 @@ router.get('/:id/students', (req,res) => {
         })
 })
 
-router.put('/:id', (req, res) => {
+router.put('/:id', restricted, (req, res) => {
     const {id} = req.params
     const changes = req.body 
     if(!changes){
@@ -77,7 +98,7 @@ router.put('/:id', (req, res) => {
         })
 })
 
-router.post('/:id/students', (req, res) => {
+router.post('/:id/students', restricted, (req, res) => {
     const info = {...req.body, profId: req.params.id}
 
     if(!info.firstName || !info.lastName){
@@ -91,8 +112,9 @@ router.post('/:id/students', (req, res) => {
                     message: 'New Student Successfully Created', 
                     student: {
                         id: saved.id,
-                        "First Name": saved.firstName,
-                        "Last Name": saved.lastName
+                        "First Name": saved["First Name"],
+                        "Last Name": saved["Last Name"],
+                        registered: false
                     }
                 }
             })
@@ -105,11 +127,10 @@ router.post('/:id/students', (req, res) => {
         })
 })
 
-router.delete('/:id', (req,res) => {
-    const {type} = req.user
+router.delete('/:id', restricted, (req,res) => {
     const {id} = req.params
 
-    Users.removeUser(id, type)
+    Users.removeUser(id)
         .then(() => {
             res.status(201).json({
                 data: {
