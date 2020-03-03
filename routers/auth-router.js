@@ -78,7 +78,7 @@ router.post('/login', (req, res) => {
                             "First Name": saved.firstName,
                             "Last Name": saved.lastName,
                             email: saved.email,
-                            registered: saved.registered === 1 ? true : false
+                            registered: saved.registered
                         },
                         token
                     }

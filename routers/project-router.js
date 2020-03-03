@@ -10,12 +10,7 @@ router.get('/', (req, res) => {
         .then(projects => {
             res.status(200).json({
                 data: {
-                    projects: projects.map(project => {
-                        return{
-                            ...project,
-                            completed: project.completed === 1 ? true : false
-                        }
-                    })
+                    projects
                 }
             })
         })
@@ -31,8 +26,7 @@ router.get('/:id', (req, res) => {
     res.status(200).json({
         data: {
             project: {
-                ...req.project,
-                completed: req.project.completed === 1 ? true : false
+                ...req.project
             }
         }
     })
@@ -87,7 +81,7 @@ router.get('/:id/reminders', (req, res) => {
                         name: req.project.name,
                         dueDate: req.project.dueDate,
                         notes: req.project.notes,
-                        completed: req.project.completed === 1 ? true : false
+                        completed: req.project.completed
                     },
                     student: {
                         id: studentId,
@@ -125,8 +119,7 @@ router.put('/:id', (req, res) => {
                 data: {
                     message: 'Project successfully updated',
                     project: {
-                        ...project,
-                        completed: project.completed === 1 ? true : false
+                        ...project
                     }
                 }
             })
@@ -148,8 +141,7 @@ router.delete('/:id', (req, res) => {
                 data: {
                     message: 'Project Successfully Deleted',
                     project: {
-                        ...req.project,
-                        completed: req.project.completed === 1 ? true : false
+                        ...req.project
                     }
                 }
 

@@ -10,19 +10,14 @@ router.get('/', (req, res) => {
         .then(reminders => {
             res.status(200).json({
                 data: {
-                    reminders: reminders.map(r => {
-                        return{
-                            ...r,
-                            completed: r.completed === 1 ? true : false
-                        }
-                    })
+                    reminders
                 }
             })
         })
         .catch(err => {
             res.status(500).json({
                 error: err,
-                errorMessage: `There was an error with your ${req.method} requestt`
+                errorMessage: `There was an error with your ${req.method} request`
             })
         })
 })
@@ -55,7 +50,7 @@ router.put('/:id', (req,res) => {
         .catch(err => {
             res.status(500).json({
                 error: err,
-                errorMessage: `There was an error with your ${req.method} requestt`
+                errorMessage: `There was an error with your ${req.method} request`
             })
         })
 })
@@ -78,7 +73,7 @@ router.delete('/:id', (req, res) => {
         .catch(err => {
             res.status(500).json({
                 error: err,
-                errorMessage: `There was an error with your ${req.method} requestt`
+                errorMessage: `There was an error with your ${req.method} request`
             })
         })
 })

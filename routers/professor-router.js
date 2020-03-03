@@ -41,23 +41,13 @@ router.get('/:id/students', (req,res) => {
             if(!registered){
                 res.status(200).json({
                     data: {
-                        students: students.map(student => {
-                            return {
-                                ...student,
-                                registered: student.registered === 1 ? true : false
-                            }
-                        })
+                        students
                     }
                 })
             }else{
                 res.status(200).json({
                     data: {
-                        students: students.map(student => {
-                            return {
-                                ...student,
-                                registered: student.registered === 1 ? true : false
-                            }
-                        }).filter(student => {
+                        students: students.filter(student => {
                             return !student.registered
                         })
                     }
