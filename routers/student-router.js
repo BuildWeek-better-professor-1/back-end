@@ -19,7 +19,7 @@ router.get('/:id', restricted, (req,res) => {
                 "Last Name": req.student['Last Name'],
                 username: req.student.username,
                 email: req.student.email,
-                registered: req.student.registered === 1 ? true : false
+                registered: req.student.registered
             }
         }
     })
@@ -36,12 +36,7 @@ router.get('/:id/projects', restricted, (req, res) => {
                         "First Name": req.student['First Name'],
                         "Last Name": req.student['Last Name']
                     },
-                    projects: projects.map(project => {
-                        return{
-                            ...project,
-                            completed: project.completed === 1 ? true : false
-                        }
-                    })
+                    projects
                 }
             })
         })
@@ -88,8 +83,7 @@ router.post('/:id/projects', restricted, (req, res) => {
                 data: {
                     message: 'Proejct Successfully Created',
                     project: {
-                        ...project,
-                        completed: project.completed === 1 ? true : false
+                        ...project
                     }
                 }
             })
@@ -120,8 +114,7 @@ router.put('/:id', (req, res) => {
                 data: {
                     message: 'Student Successfully Updated',
                     student: {
-                        ...student,
-                        registered: student.registered === 1 ? true : false
+                        ...student
                     },
                     token
                 }
@@ -150,7 +143,7 @@ router.delete('/:id', restricted, (req, res) => {
                         "Last Name": req.student['Last Name'],
                         username: req.student.username,
                         email: req.student.email,
-                        registered: req.student.registered === 1 ? true : false
+                        registered: req.student.registered
                     }
                 }
 
