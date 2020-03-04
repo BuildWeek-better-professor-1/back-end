@@ -46,7 +46,8 @@ router.post('/:id/reminders', (req, res) => {
                     student: {
                         id: reminder['Student Id'],
                         'First Name': reminder['First Name'],
-                        'Last Name': reminder['Last Name'] 
+                        'Last Name': reminder['Last Name'],
+                        type: reminder.type 
                     },
                     reminder: {
                         id: reminder.id,

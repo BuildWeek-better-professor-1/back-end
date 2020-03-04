@@ -14,6 +14,8 @@ exports.up = function(knex) {
             .notNullable()
         users.string('lastName')
             .defaultTo('')
+        users.string('type')
+            .defaultTo('professor')
   })
 
   .createTable('students', students => {
@@ -28,6 +30,8 @@ exports.up = function(knex) {
         students.string('password')
         students.boolean('registered')
             .defaultTo(false)
+        students.string('type')
+            .defaultTo('student')
   })
   .createTable('student list', sl => {
         sl.integer('profId')

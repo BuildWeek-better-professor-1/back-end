@@ -49,7 +49,8 @@ router.post('/login', (req, res) => {
                                 username: saved.username,
                                 "First Name": saved.firstName,
                                 "Last Name": saved.lastName,
-                                email: saved.email
+                                email: saved.email,
+                                type: saved.type
                             },
                             token
                         }
@@ -78,7 +79,8 @@ router.post('/login', (req, res) => {
                             "First Name": saved.firstName,
                             "Last Name": saved.lastName,
                             email: saved.email,
-                            registered: saved.registered
+                            registered: saved.registered,
+                            type: saved.type
                         },
                         token
                     }

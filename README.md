@@ -54,7 +54,8 @@ password   | String  | Yes      | User's password(must be at least 6 chars)     
             "username": "DameDolla",
             "First Name": "Damian",
             "Last Name": "Lillard",
-            "email": "dame@blazers.com"
+            "email": "dame@blazers.com",
+            "type": "professor"
         },
         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo0LCJ1c2VybmFtZSI6IkRhbWVEb2xsYSIsImlhdCI6MTU4Mjg2MDQ1MCwiZXhwIjoxNTgyODY0MDUwfQ.45T0cuAYZSyb5XYLJqdIent0zAJZTDgV7z-ZGdhOJm0"
     }
@@ -126,6 +127,7 @@ registered | Boolean | Yes      | Must be set to TRUE                           
             "First Name": "Lebron",
             "Last Name": "James",
             "email": "lebron@lakers.com",
+            "type": "student",
             "registered": true
         },
         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjotMiwidXNlcm5hbWUiOiJraW5namFtZXMiLCJpYXQiOjE1ODMxMjg5NDIsImV4cCI6MTU4MzEzMjU0Mn0.s5kwhlEcNc3sdRNmESWIeTbBCutIs6wKL0j9TxNcHRs"
@@ -189,6 +191,7 @@ password   | String | Yes      | User's chosen password                   |
             "First Name": "Damian",
             "Last Name": "Lillard",
             "email": "dame@blazers.com",
+            "type": "professor"
         },
         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo0LCJ1c2VybmFtZSI6IkRhbWVEb2xsYSIsImlhdCI6MTU4Mjg2MDU4MCwiZXhwIjoxNTgyODY0MTgwfQ.AIE0cmqz1oTKte1XhIqU4m9935GWYxqqqhA6JHUyts4"
     }
@@ -231,17 +234,20 @@ Content-Type  |String  | Yes      | Must be application/json  |
             {
                 "id": 1,
                 "First Name": "Harry",
-                "Last Name": "Potter"
+                "Last Name": "Potter",
+                "type": "preofessor"
             },
             {
                 "id": 2,
                 "First Name": "Severus",
-                "Last Name": "Snape"
+                "Last Name": "Snape",
+                "type": "preofessor"
             },
             {
                 "id": 3,
                 "First Name": "Albus",
-                "Last Name": "Dumbledore"
+                "Last Name": "Dumbledore",
+                "type": "preofessor"
             }
         ]
     }
@@ -452,6 +458,7 @@ r             | Boolean | No       | If set to TRUE only unregistered students w
                 "firstName": "Kobe",
                 "lastName": "Bryant",
                 "registered": true,
+                "type": "student",
                 "Prof First Name": "Harry",
                 "Prof Last Name": "Potter"
             },
@@ -460,6 +467,7 @@ r             | Boolean | No       | If set to TRUE only unregistered students w
                 "firstName": "Lebron",
                 "lastName": "James",
                 "registered": true,
+                "type": "student",
                 "Prof First Name": "Harry",
                 "Prof Last Name": "Potter"
             },
@@ -468,6 +476,7 @@ r             | Boolean | No       | If set to TRUE only unregistered students w
                 "firstName": "Damian",
                 "lastName": "Lilliard",
                 "registered": true,
+                "type": "student",
                 "Prof First Name": "Harry",
                 "Prof Last Name": "Potter"
             },
@@ -476,6 +485,7 @@ r             | Boolean | No       | If set to TRUE only unregistered students w
                 "firstName": "Anthony",
                 "lastName": "Davis",
                 "registered": false,
+                "type": "student",
                 "Prof First Name": "Harry",
                 "Prof Last Name": "Potter"
             },
@@ -484,6 +494,7 @@ r             | Boolean | No       | If set to TRUE only unregistered students w
                 "firstName": "Michael",
                 "lastName": "Jordan",
                 "registered": true,
+                "type": "student",
                 "Prof First Name": "Harry",
                 "Prof Last Name": "Potter"
             },
@@ -492,6 +503,7 @@ r             | Boolean | No       | If set to TRUE only unregistered students w
                 "firstName": "Magic",
                 "lastName": "Johnson",
                 "registered": false,
+                "type": "student",
                 "Prof First Name": "Harry",
                 "Prof Last Name": "Potter"
             }
@@ -556,7 +568,8 @@ lastName    | String | Yes      | Student's last name                      |
             "id": 23,
             "First Name": "Jimmy",
             "Last Name": "Butler",
-            registered: false
+            "type": "student",
+            "registered": false
         }
     }
 }
@@ -626,6 +639,7 @@ registered  | boolean| No       | Student registrsation status             |
             "First Name": "Ben",
             "Last Name": "Simmons",
             "email": "ben@sixers.com",
+            "type": "student",
             "registered": true
         },
         "token": null
@@ -675,6 +689,7 @@ authorization |String  | Yes      | token received upon login |
             "Last Name": "Irving",
             "username": "uncledrew",
             "email": "kyrie@nets.com",
+            "type": "student",
             "registered": true
         }
     }
@@ -723,6 +738,7 @@ authorization |String  | Yes      | token received upon login |
             "Last Name": "Davis",
             "username": null,
             "email": null,
+            "type": "student",
             "registered": false
         }
     }
@@ -768,7 +784,8 @@ authorization |String  | Yes      | token received upon login |
         "student": {
             "id": 4,
             "First Name": "Anthony",
-            "Last Name": "Davis"
+            "Last Name": "Davis",
+            "type": "student"
         },
         "projects": [
             {
@@ -829,7 +846,8 @@ authorization |String  | Yes      | token received upon login |
         "student": {
             "id": 1,
             "First Name": "Kobe",
-            "Last Name": "Bryant"
+            "Last Name": "Bryant",
+            "type": "student"
         },
         "reminders": [
             {
@@ -1233,7 +1251,8 @@ date        | Integer | Yes      | Reminder date(milliseconds)              |
         "student": {
             "id": 1,
             "First Name": "Kobe",
-            "Last Name": "Bryant"
+            "Last Name": "Bryant",
+            "type": "student"
         },
         "reminder": {
             "id": 22,
