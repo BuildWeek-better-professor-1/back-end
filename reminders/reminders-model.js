@@ -26,7 +26,8 @@ function getRemindersById(id){
             'p.dueDate as Due Date',
             's.firstName as First Name',
             's.lastName as Last Name',
-            's.id as Student Id'
+            's.id as Student Id',
+            's.type'
         )
         .where('r.id', id)
         .first()

@@ -19,6 +19,7 @@ async function findStudents(prof){
             's.firstName',
             's.lastName', 
             's.registered',
+            's.type',
             'u.firstName as Prof First Name',
             'u.lastName as Prof Last Name',
             )
@@ -40,6 +41,7 @@ function findStudentById(id){
             'firstName as First Name', 
             'lastName as Last Name',
             'email',
+            'type',
             'registered'
             )
         .first()

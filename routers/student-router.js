@@ -34,7 +34,8 @@ router.get('/:id/projects', restricted, (req, res) => {
                     student: {
                         "id": req.student.id,
                         "First Name": req.student['First Name'],
-                        "Last Name": req.student['Last Name']
+                        "Last Name": req.student['Last Name'],
+                        "type": req.student.type
                     },
                     projects
                 }
@@ -57,7 +58,8 @@ router.get('/:id/reminders', restricted, (req, res) => {
                     student: {
                         id: req.student.id,
                         "First Name": req.student['First Name'],
-                        "Last Name": req.student['Last Name']
+                        "Last Name": req.student['Last Name'],
+                        type: req.student.type
                     },
                     reminders
                 }
