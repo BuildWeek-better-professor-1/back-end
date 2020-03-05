@@ -68,8 +68,9 @@ describe('auth-router POST to /register', () => {
             id: 1,
             username: 'blackmamba',
             email: 'mamba@lakers.com',
-            "First Name": 'Kobe',
-            "Last Name": 'Bryant'
+            first_name: 'Kobe',
+            last_name: 'Bryant',
+            type: "professor"
         })
     })
 
@@ -86,7 +87,7 @@ describe('auth-router POST to /register', () => {
     })
 })
 
-describe('auth-router POST to /login', () => {
+describe('auth-router POST to /login (professor)', () => {
     beforeEach(async () => {
         await db('professorUsers').truncate()
     })
@@ -128,8 +129,9 @@ describe('auth-router POST to /login', () => {
             id: 1,
             username: 'kingjames',
             email: 'lebron@lakers.com',
-            "First Name": 'Lebron',
-            "Last Name": 'James'
+            first_name: 'Lebron',
+            last_name: 'James',
+            type: "professor"
         }
         const res = await request(server)
                         .post('/api/auth/login?type=p')

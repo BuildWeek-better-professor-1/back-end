@@ -102,8 +102,8 @@ router.post('/:id/students', restricted, (req, res) => {
                     message: 'New Student Successfully Created', 
                     student: {
                         id: saved.id,
-                        "First Name": saved["First Name"],
-                        "Last Name": saved["Last Name"],
+                        first_name: saved.first_name,
+                        last_name: saved.last_name,
                         registered: false
                     }
                 }

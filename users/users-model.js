@@ -11,7 +11,12 @@ module.exports = {
 
 function getProfUsers(){
     return db('professorUsers')
-        .select('id', 'firstName as First Name', 'lastName as Last Name', 'type')
+        .select(
+            'id', 
+            'firstName as first_name', 
+            'lastName as last_name', 
+            'type'
+        )
 }
 
 function findBy(filter){
@@ -26,8 +31,8 @@ function findById(id){
         .select(
             'id', 
             'username', 
-            'firstName as First Name', 
-            'lastName as Last Name', 
+            'firstName as first_name', 
+            'lastName as last_name', 
             'email', 
             'type'
         )
