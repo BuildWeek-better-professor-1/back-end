@@ -52,8 +52,8 @@ password   | String  | Yes      | User's password(must be at least 6 chars)     
         "user": {
             "id": 4,
             "username": "DameDolla",
-            "First Name": "Damian",
-            "Last Name": "Lillard",
+            "first_name": "Damian",
+            "last_name": "Lillard",
             "email": "dame@blazers.com",
             "type": "professor"
         },
@@ -124,8 +124,8 @@ registered | Boolean | Yes      | Must be set to TRUE                           
         "student": {
             "id": -2,
             "username": "kingjames",
-            "First Name": "Lebron",
-            "Last Name": "James",
+            "first_name": "Lebron",
+            "last_name": "James",
             "email": "lebron@lakers.com",
             "type": "student",
             "registered": true
@@ -188,8 +188,8 @@ password   | String | Yes      | User's chosen password                   |
         "user": {
             "id": 4,
             "username": "DameDolla",
-            "First Name": "Damian",
-            "Last Name": "Lillard",
+            "first_name": "Damian",
+            "last_name": "Lillard",
             "email": "dame@blazers.com",
             "type": "professor"
         },
@@ -211,7 +211,7 @@ password   | String | Yes      | User's chosen password                   |
 
 HTTP request: GET
 
-URL: /api/users/professors
+URL: /api/users/professor
 
 ### Headers 
 
@@ -233,20 +233,20 @@ Content-Type  |String  | Yes      | Must be application/json  |
         "professors": [
             {
                 "id": 1,
-                "First Name": "Harry",
-                "Last Name": "Potter",
+                "first_name": "Harry",
+                "last_name": "Potter",
                 "type": "preofessor"
             },
             {
                 "id": 2,
-                "First Name": "Severus",
-                "Last Name": "Snape",
+                "first_name": "Severus",
+                "last_name": "Snape",
                 "type": "preofessor"
             },
             {
                 "id": 3,
-                "First Name": "Albus",
-                "Last Name": "Dumbledore",
+                "first_name": "Albus",
+                "last_name": "Dumbledore",
                 "type": "preofessor"
             }
         ]
@@ -261,7 +261,7 @@ Content-Type  |String  | Yes      | Must be application/json  |
 
 HTTP request: GET
 
-URL: /api/users/professors/:id
+URL: /api/users/professor/:id
 
 ### Headers 
 
@@ -284,8 +284,8 @@ authorization |String  | Yes      | token received upon login |
         "user": {
             "id": 3,
             "username": "albus",
-            "First Name": "Albus",
-            "Last Name": "Dumbledore",
+            "first_name": "Albus",
+            "last_name": "Dumbledore",
             "email": "albus@hogwarts.com",
             "type": "professor"
         }
@@ -333,8 +333,8 @@ password    | String | No       | Professors' updated password             |
 ```javascript
 {
     "username": "severus",
-    "First Name": "Severus",
-    "Last Name": "Snape",
+    "first_name": "Severus",
+    "last_name": "Snape",
     "email": "severus@hogwarts.com",
     "password": "SlytherinPrince"
 }
@@ -354,8 +354,8 @@ password    | String | No       | Professors' updated password             |
         "user": {
             "id": 3,
             "username": "severus",
-            "First Name": "Severus",
-            "Last Name": "Snape",
+            "first_name": "Severus",
+            "last_name": "Snape",
             "email": "severus@hogwarts.com",
             "type": "professor"
         }
@@ -402,8 +402,8 @@ authorization |String  | Yes      | token received upon login |
         "user": {
             "id": 3,
             "username": "severus",
-            "First Name": "Severus",
-            "Last Name": "Snape",
+            "first_name": "Severus",
+            "last_name": "Snape",
             "email": "severus@hogwarts.com",
             "type": "professor"
         }
@@ -455,8 +455,8 @@ r             | Boolean | No       | If set to TRUE only unregistered students w
         "students": [
             {
                 "id": 1,
-                "firstName": "Kobe",
-                "lastName": "Bryant",
+                "first_name": "Kobe",
+                "last_name": "Bryant",
                 "registered": true,
                 "type": "student",
                 "Prof First Name": "Harry",
@@ -464,8 +464,8 @@ r             | Boolean | No       | If set to TRUE only unregistered students w
             },
             {
                 "id": 2,
-                "firstName": "Lebron",
-                "lastName": "James",
+                "first_name": "Lebron",
+                "last_name": "James",
                 "registered": true,
                 "type": "student",
                 "Prof First Name": "Harry",
@@ -473,8 +473,8 @@ r             | Boolean | No       | If set to TRUE only unregistered students w
             },
             {
                 "id": 3,
-                "firstName": "Damian",
-                "lastName": "Lilliard",
+                "first_name": "Damian",
+                "last_name": "Lilliard",
                 "registered": true,
                 "type": "student",
                 "Prof First Name": "Harry",
@@ -482,8 +482,8 @@ r             | Boolean | No       | If set to TRUE only unregistered students w
             },
             {
                 "id": 4,
-                "firstName": "Anthony",
-                "lastName": "Davis",
+                "first_name": "Anthony",
+                "last_name": "Davis",
                 "registered": false,
                 "type": "student",
                 "Prof First Name": "Harry",
@@ -491,8 +491,8 @@ r             | Boolean | No       | If set to TRUE only unregistered students w
             },
             {
                 "id": 5,
-                "firstName": "Michael",
-                "lastName": "Jordan",
+                "first_name": "Michael",
+                "last_name": "Jordan",
                 "registered": true,
                 "type": "student",
                 "Prof First Name": "Harry",
@@ -500,8 +500,8 @@ r             | Boolean | No       | If set to TRUE only unregistered students w
             },
             {
                 "id": 6,
-                "firstName": "Magic",
-                "lastName": "Johnson",
+                "first_name": "Magic",
+                "last_name": "Johnson",
                 "registered": false,
                 "type": "student",
                 "Prof First Name": "Harry",
@@ -566,8 +566,8 @@ lastName    | String | Yes      | Student's last name                      |
         "message": "New Student Successfully Created",
         "student": {
             "id": 23,
-            "First Name": "Jimmy",
-            "Last Name": "Butler",
+            "first_name": "Jimmy",
+            "last_name": "Butler",
             "type": "student",
             "registered": false
         }
@@ -616,8 +616,8 @@ registered  | boolean| No       | Student registrsation status             |
 ```javascript
 {
         "username": "brickcity",
-        "First Name": "Ben",
-        "Last Name": "Simmons",
+        "first_name": "Ben",
+        "last_name": "Simmons",
         "email": "ben@sixers.com",
 }
 ```
@@ -636,8 +636,8 @@ registered  | boolean| No       | Student registrsation status             |
         "student": {
             "id": 3,
             "username": "brickcity",
-            "First Name": "Ben",
-            "Last Name": "Simmons",
+            "first_name": "Ben",
+            "last_name": "Simmons",
             "email": "ben@sixers.com",
             "type": "student",
             "registered": true
@@ -685,8 +685,8 @@ authorization |String  | Yes      | token received upon login |
         "message": "Student Successfully deleted",
         "student": {
             "id": -15,
-            "First Name": "Kyrie",
-            "Last Name": "Irving",
+            "first_name": "Kyrie",
+            "last_name": "Irving",
             "username": "uncledrew",
             "email": "kyrie@nets.com",
             "type": "student",
@@ -734,8 +734,8 @@ authorization |String  | Yes      | token received upon login |
     "data": {
         "student": {
             "id": 4,
-            "First Name": "Anthony",
-            "Last Name": "Davis",
+            "first_name": "Anthony",
+            "last_name": "Davis",
             "username": null,
             "email": null,
             "type": "student",
@@ -783,21 +783,21 @@ authorization |String  | Yes      | token received upon login |
     "data": {
         "student": {
             "id": 4,
-            "First Name": "Anthony",
-            "Last Name": "Davis",
+            "first_name": "Anthony",
+            "last_name": "Davis",
             "type": "student"
         },
         "projects": [
             {
                 "id": 5,
-                "Due Date": 1582952881294,
+                "due_date": 1582952881294,
                 "name": "Why the world ended",
                 "notes": "",
                 "completed": false
             },
             {
                 "id": 6,
-                "Due Date": 1583039281294,
+                "due_date": 1583039281294,
                 "name": "Coffe Meeting",
                 "notes": "",
                 "completed": false
@@ -845,8 +845,8 @@ authorization |String  | Yes      | token received upon login |
     "data": {
         "student": {
             "id": 1,
-            "First Name": "Kobe",
-            "Last Name": "Bryant",
+            "first_name": "Kobe",
+            "last_name": "Bryant",
             "type": "student"
         },
         "reminders": [
@@ -854,16 +854,18 @@ authorization |String  | Yes      | token received upon login |
                 "id": 1,
                 "message": "Get your stuff done",
                 "date": 1583044293254,
-                "Project Name": "Ball out",
-                "Due Date": 1583217093252,
+                "read": false,
+                "project_name: "Ball out",
+                "due_date": 1583217093252,
                 "notes": ""
             },
             {
                 "id": 2,
                 "message": "Time to do your project",
                 "date": 1583130693254,
-                "Project Name": "Do Something",
-                "Due Date": 1583217093252,
+                "read": false,
+                "project_name: "Do Something",
+                "due_date": 1583217093252,
                 "notes": ""
             }
         ]
@@ -910,56 +912,56 @@ authorization |String  | Yes      | token received upon login |
             {
                 "id": 1,
                 "name": "Ball out",
-                "dueDate": 1582950338692,
+                "due_date": 1582950338692,
                 "notes": "",
                 "completed": false,
-                "firstName": "Kobe",
-                "lastName": "Bryant"
+                "first_name": "Kobe",
+                "last_name": "Bryant"
             },
             {
                 "id": 2,
                 "name": "Do Something",
-                "dueDate": 1583295938692,
+                "due_date": 1583295938692,
                 "notes": "",
                 "completed": false,
-                "firstName": "Kobe",
-                "lastName": "Bryant"
+                "first_name": "Kobe",
+                "last_name": "Bryant"
             },
             {
                 "id": 3,
                 "name": "Create new technology",
-                "dueDate": 1583036738692,
+                "due_date": 1583036738692,
                 "notes": "",
                 "completed": false,
-                "firstName": "Lebron",
-                "lastName": "James"
+                "first_name": "Lebron",
+                "last_name": "James"
             },
             {
                 "id": 4,
                 "name": "Learn Express",
-                "dueDate": 1583209538692,
+                "due_date": 1583209538692,
                 "notes": "",
                 "completed": false,
-                "firstName": "Damian",
-                "lastName": "Lilliard"
+                "first_name": "Damian",
+                "last_name": "Lilliard"
             },
             {
                 "id": 5,
                 "name": "Why the world ended",
-                "dueDate": 1582950338692,
+                "due_date": 1582950338692,
                 "notes": "",
                 "completed": false,
-                "firstName": "Anthony",
-                "lastName": "Davis"
+                "first_name": "Anthony",
+                "last_name": "Davis"
             },
             {
                 "id": 6,
                 "name": "Coffe Meeting",
-                "dueDate": 1583036738693,
+                "due_date": 1583036738693,
                 "notes": "",
                 "completed": false,
-                "firstName": "Anthony",
-                "lastName": "Davis"
+                "first_name": "Anthony",
+                "last_name": "Davis"
             },
         ]
     }
@@ -1002,11 +1004,11 @@ authorization |String  | Yes      | token received upon login |
         "project": {
             "id": 3,
             "name": "Create new technology",
-            "dueDate": 1583039281294,
+            "due_date": 1583039281294,
             "notes": "",
             "completed": false,
-            "First Name": "Lebron",
-            "Last Name": "James"
+            "first_name": "Lebron",
+            "last_name": "James"
         }
     }
 }
@@ -1069,11 +1071,11 @@ notes       | String  | No       | Any notes about the project              |
         "project": {
             "id": 23,
             "name": "Take over the world",
-            "dueDate": 1583015361297,
+            "due_date": 1583015361297,
             "notes": null,
             "completed": false,
-            "First Name": "Lebron",
-            "Last Name": "James"
+            "first_name": "Lebron",
+            "last_name": "James"
         }
     }
 }
@@ -1137,11 +1139,11 @@ completed   | Boolean | No       | Boolean indicating if projected is completed 
         "project": {
             "id": 25,
             "name": "Take over the world",
-            "dueDate": 1583015361297,
+            "due_date": 1583015361297,
             "notes": "Almost done",
             "completed": true,
-            "First Name": "Lebron",
-            "Last Name": "James"
+            "first_name": "Lebron",
+            "last_name": "James"
         }
     }
 }
@@ -1186,11 +1188,11 @@ authorization |String  | Yes      | token received upon login |
         "project": {
             "id": 4,
             "name": "Learn Express",
-            "dueDate": 1583209538692,
+            "due_date": 1583209538692,
             "notes": "",
             "completed": true
-            "First Name": "Damian",
-            "Last Name": "Lilliard"
+            "first_name": "Damian",
+            "last_name": "Lilliard"
         }
     }
 }
@@ -1250,16 +1252,17 @@ date        | Integer | Yes      | Reminder date(milliseconds)              |
         "message": "Reminder Successfully Created",
         "student": {
             "id": 1,
-            "First Name": "Kobe",
-            "Last Name": "Bryant",
+            "first_name": "Kobe",
+            "last_name": "Bryant",
             "type": "student"
         },
         "reminder": {
             "id": 22,
             "message": "Get it done",
             "date": 1583027737891,
-            "Project Name": "Ball out",
-            "Due Date": 1583048790453
+            "read": false,
+            "project_name": "Ball out",
+            "due_date": 1583048790453
         }
     }
 }
@@ -1305,11 +1308,12 @@ authorization |String  | Yes      | token received upon login |
             "id": -1,
             "message": "Have fun",
             "date": 1582992189459,
-            "Project Name": "Ball out",
-            "Due Date": 1583424189456,
-            "First Name": "Kobe",
-            "Last Name": "Bryant",
-            "Student Id": -1
+            "read": false,
+            "project_name": "Ball out",
+            "due_date": 1583424189456,
+            "first_name": "Kobe",
+            "last_name": "Bryant",
+            "student_id": -1
         }
     }
 }
@@ -1353,25 +1357,27 @@ authorization |String  | Yes      | token received upon login |
         "project": {
             "id": 7,
             "name": "Javascript Presentation",
-            "dueDate": 1583337789456,
+            "due_date": 1583337789456,
             "notes": "",
             "completed": false
         },
         "student": {
             "id": 5,
-            "First Name": "Michael",
-            "Last Name": "Jordan"
+            "first_name": "Michael",
+            "last_name": "Jordan"
         },
         "reminders": [
             {
                 "id": 7,
                 "message": "Get your stuff done",
-                "date": 1583164989459
+                "date": 1583164989459,
+                "read": false
             },
             {
                 "id": 1,
                 "message": "Get it done",
-                "date": 1583027737891
+                "date": 1583027737891,
+                "read": false
             }
         ]
     }
@@ -1417,9 +1423,10 @@ authorization |String  | Yes      | token received upon login |
             {
                 "id": 21,
                 "date": 1582992189459,
+                "read": false,
                 "message": "Do you need help?",
                 "projectId": 21,
-                "dueDate": 1583078589456,
+                "due_date": 1583078589456,
                 "name": "Mastermind Group",
                 "notes": "",
                 "completed": false,
@@ -1428,9 +1435,10 @@ authorization |String  | Yes      | token received upon login |
             {
                 "id": 20,
                 "date": 1583164989459,
+                "read": false,
                 "message": "Time to do your project",
                 "projectId": 20,
-                "dueDate": 1583078589456,
+                "due_date": 1583078589456,
                 "name": "Dev Time",
                 "notes": "",
                 "completed": false,
@@ -1439,9 +1447,10 @@ authorization |String  | Yes      | token received upon login |
             {
                 "id": 19,
                 "date": 1583164989459,
+                "read": false,
                 "message": "Get your stuff done",
                 "projectId": 19,
-                "dueDate": 1583424189456,
+                "due_date": 1583424189456,
                 "name": "Find Your Happy",
                 "notes": "",
                 "completed": false,
@@ -1450,9 +1459,10 @@ authorization |String  | Yes      | token received upon login |
             {
                 "id": 18,
                 "date": 1582992189459,
+                "read": false,
                 "message": "Do you need help?",
                 "projectId": 18,
-                "dueDate": 1582992189456,
+                "due_date": 1582992189456,
                 "name": "Medical Scares",
                 "notes": "",
                 "completed": false,
@@ -1461,9 +1471,10 @@ authorization |String  | Yes      | token received upon login |
             {
                 "id": 17,
                 "date": 1582992189459,
+                "read": false,
                 "message": "Time to do your project",
                 "projectId": 17,
-                "dueDate": 1583510589456,
+                "due_date": 1583510589456,
                 "name": "Ghana: The Greatest World Power",
                 "notes": "",
                 "completed": false,
@@ -1472,9 +1483,10 @@ authorization |String  | Yes      | token received upon login |
             {
                 "id": 16,
                 "date": 1583078589459,
+                "read": false,
                 "message": "Get your stuff done",
                 "projectId": 16,
-                "dueDate": 1583251389456,
+                "due_date": 1583251389456,
                 "name": "Lunch Meeting",
                 "notes": "",
                 "completed": false,
@@ -1539,11 +1551,12 @@ date        | Integer | No       | Reminder date(milliseconds)              |
             "id": 3,
             "message": "I need this finished",
             "date": 1582992189459,
-            "Project Name": "Ball out",
-            "Due Date": 1583424189456,
-            "First Name": "Kobe",
-            "Last Name": "Bryant",
-            "Student Id": 1
+            "read": false,
+            "project_name": "Ball out",
+            "due_date": 1583424189456,
+            "first_name": "Kobe",
+            "last_name": "Bryant",
+            "student_id": 1
         }
     }
 }
@@ -1584,15 +1597,17 @@ authorization |String  | Yes      | token received upon login |
 ```javascript
 {
     "data": {
-        "message": "Project Successfully Deleted",
-        "project": {
-            "id": 4,
-            "name": "Learn Express",
-            "dueDate": 1583209538692,
-            "notes": "",
-            "completed": true
-            "First Name": "Damian",
-            "Last Name": "Lilliard"
+        "message": "Reminder Successfully Deleted",
+        "reminder": {
+            "id": 3,
+            "message": "I need this finished",
+            "date": 1582992189459,
+            "read": false,
+            "project_name": "Ball out",
+            "due_date": 1583424189456,
+            "first_name": "Kobe",
+            "last_name": "Bryant",
+            "student_id": 1
         }
     }
 }
