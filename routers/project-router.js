@@ -44,17 +44,17 @@ router.post('/:id/reminders', (req, res) => {
                 data: {
                     message: 'Reminder Successfully Created',
                     student: {
-                        id: reminder['Student Id'],
-                        'First Name': reminder['First Name'],
-                        'Last Name': reminder['Last Name'],
+                        id: reminder.student_id,
+                        first_name: reminder.first_name,
+                        last_name: reminder.last_name,
                         type: reminder.type 
                     },
                     reminder: {
                         id: reminder.id,
                         message: reminder.message,
                         date: reminder.date,
-                        'Project Name': reminder['Project Name'],
-                        "Due Date": reminder['Due Date'],
+                        project_name: reminder.project_name,
+                        due_date: reminder.due_date,
                         notes: reminder.notes
                     }
                 }
@@ -80,14 +80,14 @@ router.get('/:id/reminders', (req, res) => {
                     project: {
                         id: req.project.id,
                         name: req.project.name,
-                        dueDate: req.project.dueDate,
+                        due_date: req.project.due_date,
                         notes: req.project.notes,
                         completed: req.project.completed
                     },
                     student: {
                         id: studentId,
-                        "First Name": req.project["First Name"],
-                        "Last Name": req.project["Last Name"]
+                        first_name: req.project.first_name,
+                        last_name: req.project.last_name
                     },
                     reminders: reminders.map(r => {
                         return {

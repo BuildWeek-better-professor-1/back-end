@@ -18,7 +18,7 @@ router.post('/register', validateUserInfo, (req,res) => {
             const token = generateToken(saved)
             res.status(201).json({
                 data: {
-                    message: `Welcome ${saved['First Name']}`,
+                    message: `Welcome ${saved.first_name}`,
                     user: {...saved},
                     token
                 }
@@ -47,8 +47,8 @@ router.post('/login', (req, res) => {
                             user: {
                                 id: saved.id,
                                 username: saved.username,
-                                "First Name": saved.firstName,
-                                "Last Name": saved.lastName,
+                                first_name: saved.firstName,
+                                last_name: saved.lastName,
                                 email: saved.email,
                                 type: saved.type
                             },
@@ -76,8 +76,8 @@ router.post('/login', (req, res) => {
                         user: {
                             id: saved.id,
                             username: saved.username,
-                            "First Name": saved.firstName,
-                            "Last Name": saved.lastName,
+                            first_name: saved.firstName,
+                            last_name: saved.lastName,
                             email: saved.email,
                             registered: saved.registered,
                             type: saved.type
@@ -108,7 +108,7 @@ function generateToken(user){
     }
 
     const options = {
-        expiresIn: '1h'
+        expiresIn: '1 day'
     }
 
     return jwt.sign(payload, secrets.jwtSecret, options)

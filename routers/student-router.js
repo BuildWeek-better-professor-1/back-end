@@ -14,9 +14,9 @@ router.get('/:id', restricted, (req,res) => {
     res.status(200).json({
         data: {
             student: {
-                "id": req.student.id,
-                "First Name": req.student['First Name'],
-                "Last Name": req.student['Last Name'],
+                id: req.student.id,
+                first_name: req.student.first_name,
+                last_name: req.student.last_name,
                 username: req.student.username,
                 email: req.student.email,
                 registered: req.student.registered
@@ -32,10 +32,10 @@ router.get('/:id/projects', restricted, (req, res) => {
             res.status(200).json({
                 data: {
                     student: {
-                        "id": req.student.id,
-                        "First Name": req.student['First Name'],
-                        "Last Name": req.student['Last Name'],
-                        "type": req.student.type
+                        id: req.student.id,
+                        first_name: req.student.first_name,
+                        last_name: req.student.last_name,
+                        type: req.student.type
                     },
                     projects
                 }
@@ -57,8 +57,8 @@ router.get('/:id/reminders', restricted, (req, res) => {
                 data: {
                     student: {
                         id: req.student.id,
-                        "First Name": req.student['First Name'],
-                        "Last Name": req.student['Last Name'],
+                        first_name: req.student.first_name,
+                        last_name: req.student.last_name,
                         type: req.student.type
                     },
                     reminders
@@ -140,9 +140,9 @@ router.delete('/:id', restricted, (req, res) => {
                 data: {
                     message: 'Student Successfully deleted',
                     student: {
-                        "id": req.student.id,
-                        "First Name": req.student['First Name'],
-                        "Last Name": req.student['Last Name'],
+                        id: req.student.id,
+                        first_name: req.student.first_name,
+                        last_name: req.student.last_name,
                         username: req.student.username,
                         email: req.student.email,
                         registered: req.student.registered
@@ -168,7 +168,7 @@ function generateToken(user){
     }
 
     const options = {
-        expiresIn: '1h'
+        expiresIn: '1 day'
     }
 
     return jwt.sign(payload, secrets.jwtSecret, options)

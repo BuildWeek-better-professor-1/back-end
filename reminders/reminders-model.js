@@ -21,12 +21,13 @@ function getRemindersById(id){
         .select(
             'r.id', 
             'r.message', 
-            'r.date', 
-            'p.name as Project Name',
-            'p.dueDate as Due Date',
-            's.firstName as First Name',
-            's.lastName as Last Name',
-            's.id as Student Id',
+            'r.date',
+            'r.read', 
+            'p.name as project_name',
+            'p.dueDate as due_date',
+            's.firstName as first_name',
+            's.lastName as last_name',
+            's.id as student_id',
             's.type'
         )
         .where('r.id', id)
@@ -41,7 +42,8 @@ function getRemindersByProject(id){
             'r.id', 
             'r.message', 
             'r.date', 
-            's.id as Student Id'
+            'r.read',
+            's.id as student_id'
         )
         .where('r.projectId', id)
 }

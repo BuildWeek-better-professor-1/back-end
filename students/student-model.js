@@ -12,7 +12,7 @@ module.exports = {
 
 async function findStudents(prof){
     return await db('student list as sl')
-        .join('professorUsers as u', 'sl.profId', 'u.id')
+        .join('professorUsers as p', 'sl.profId', 'p.id')
         .join('students as s', 's.id', 'sl.studentId')
         .select(
             's.id',
@@ -20,8 +20,8 @@ async function findStudents(prof){
             's.lastName', 
             's.registered',
             's.type',
-            'u.firstName as Prof First Name',
-            'u.lastName as Prof Last Name',
+            'p.firstName as prof_first_name',
+            'p.lastName as prof_last_name',
             )
         .where('sl.profId', prof)
 }
@@ -38,8 +38,8 @@ function findStudentById(id){
         .select(
             'id',
             'username',
-            'firstName as First Name', 
-            'lastName as Last Name',
+            'firstName as first_name', 
+            'lastName as last_name',
             'email',
             'type',
             'registered'
@@ -55,8 +55,8 @@ function findStudentReminders(id){
             'r.id',
             'r.message',
             'r.date',
-            'p.name as Project Name', 
-            'p.dueDate as Due Date',
+            'p.name as project_name', 
+            'p.dueDate as due_date',
             'p.notes',
         )
         .where('s.id', id)
