@@ -21,6 +21,8 @@ exports.up = function(knex) {
             .notNullable()
         reminders.string('message')
             .notNullable()
+        reminders.boolean('read')
+            .defaultTo(false)
         reminders.integer('projectId')
             .notNullable()
             .references('id')
