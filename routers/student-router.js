@@ -116,7 +116,8 @@ router.put('/:id', (req, res) => {
                 data: {
                     message: 'Student Successfully Updated',
                     student: {
-                        ...student
+                        ...student,
+                        registered: register ? true : student.registered
                     },
                     token
                 }
