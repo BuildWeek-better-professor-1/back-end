@@ -53,6 +53,7 @@ router.post('/:id/reminders', (req, res) => {
                         id: reminder.id,
                         message: reminder.message,
                         date: reminder.date,
+                        read: r.read,
                         project_name: reminder.project_name,
                         due_date: reminder.due_date,
                         notes: reminder.notes
@@ -93,7 +94,8 @@ router.get('/:id/reminders', (req, res) => {
                         return {
                             id: r.id,
                             message: r.message,
-                            date: r.date
+                            date: r.date,
+                            read: r.read
                         }
                     })
                 }
