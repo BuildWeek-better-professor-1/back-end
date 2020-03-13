@@ -40,6 +40,7 @@ router.post('/:id/reminders', (req, res) => {
     }
     Reminders.addReminder(info)
         .then(reminder => {
+            console.log(reminder)
             res.status(201).json({
                 data: {
                     message: 'Reminder Successfully Created',
@@ -53,7 +54,7 @@ router.post('/:id/reminders', (req, res) => {
                         id: reminder.id,
                         message: reminder.message,
                         date: reminder.date,
-                        read: r.read,
+                        read: reminder.read,
                         project_name: reminder.project_name,
                         due_date: reminder.due_date,
                         notes: reminder.notes
