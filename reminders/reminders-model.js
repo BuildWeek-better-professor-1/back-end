@@ -25,6 +25,7 @@ function getRemindersById(id){
             'r.read', 
             'p.name as project_name',
             'p.dueDate as due_date',
+            'p.notes',
             's.firstName as first_name',
             's.lastName as last_name',
             's.id as student_id',
