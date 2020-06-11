@@ -4,10 +4,10 @@ module.exports = {
     client: 'pg',
     useNullAsDefault: true,
     connection: {
-      host: '127.0.0.1',
-			user: 'postgres',
-			password: process.env.DB_URL,
-			database: 'professor-app'
+      host: process.env.POSTGRES_HOST,
+			user: process.env.POSTGRES_USER,
+			password: process.env.POSTGRES_PASSWORD,
+			database: process.env.POSTGRES_DB
     }, 
     migrations: {
       directory: './database/migrations',

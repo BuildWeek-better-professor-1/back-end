@@ -1,7 +1,7 @@
 /// <reference types='jest' /> 
 
 const request = require('supertest')
-const server = require('../api/server.js')
+const server = require('../../api/server.js')
 
 describe('server.js', () => {
 

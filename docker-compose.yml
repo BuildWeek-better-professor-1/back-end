@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+    # Create postgres service
+    postgres:
+        # Pull from `postgres:12-alpine` image
+        image: "postgres:12-alpine"
+        container_name: "better-professor-postgres"
+        # Connect to volumes
+        ports:
+            - "5432:5432"
+        volumes:
+            - "better-professor-app:/var/lib/postgresql/data"
+        # Create environment variables
+        environment:
+            - POSTGRES_USER=${POSTGRES_USER}
+            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+            - POSTGRES_DB=${POSTGRES_DB}
+    # Create server service
+    server:
+        # Pull from `node:12-alpine` image
+        image: "node:12-alpine"
+        container_name: "better-professor-backend"
+        # Install dependencies and run server
+        command: sh -c "npm install && npm run migrate && npm run server"
+        # Map to port 8000
+        ports:
+            - "8000:8000"
+        working_dir: "/back-end"
+        # Connect to volume for data persistence
+        volumes:
+            - "./:/back-end"
+        # Create environment variables
+        environment:
+            - POSTGRES_USER=${POSTGRES_USER}
+            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+            - POSTGRES_DB=${POSTGRES_DB}
+            - POSTGRES_HOST=${POSTGRES_HOST}
+volumes:
+    better-professor-app:
